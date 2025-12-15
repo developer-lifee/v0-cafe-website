@@ -10,34 +10,31 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
-
-      # [CORRECCIÓN 1] Configurar pnpm, ya que el proyecto lo usa (pnpm-lock.yaml)
+        
+      # 1. Configuración de pnpm (Tu proyecto usa pnpm)
       - name: ⚙️ Set up pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 9 # Versión estable de pnpm
-          run_install: false # Deshabilita la instalación automática
+        uses: pnpm/action-setup@v3 
 
-      # [CORRECCIÓN 2a] Usar actions/setup-node@v4 (más reciente) y configurar el caché
+      # 2. Configuración de Node.js 20+ con caché pnpm
       - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4 # Usar versión más reciente (v4)
         with:
           node-version: '20' 
-          cache: 'pnpm' # Cachear con pnpm
+          cache: 'pnpm'
 
       - name: 📦 Install dependencies
-        # [CORRECCIÓN 2b] Usar pnpm para la instalación
+        # Usa pnpm. Con el lockfile subido, usará el modo frozen.
         run: pnpm install --frozen-lockfile
 
       - name: 🏗️ Build and Export project
-        # [CORRECCIÓN 3] Ejecutar la construcción Y la exportación estática para generar 'out/'
-        # Esto genera la carpeta 'out/' que la acción de FTP necesita.
+        # 3. Ejecutar Build y Exportación estática (next export) para generar 'out/'
         run: pnpm run build && npx next export
         
       - name: 📂 Sync build folder via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          local-dir: out/ # RUTA CORREGIDA: Apunta a la carpeta 'out/'
+          # 4. Usa la carpeta 'out/' generada por 'next export'
+          local-dir: out/
           server: ftps4.us.freehostia.com
           username: estavi7
           password: ${{ secrets.FTP_PASSWORD }}
