@@ -11,21 +11,34 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v3
+      # [CORRECCIÓN 1] Configurar pnpm, ya que el proyecto lo usa (pnpm-lock.yaml)
+      - name: ⚙️ Set up pnpm
+        uses: pnpm/action-setup@v3
         with:
-          node-version: '20'  # Specifically, packages like ESLint, TypeScript ESLint, Vite, React Hook Form, and others need Node.js ≥ 18.0.0
+          version: 9 # Versión estable de pnpm
+          run_install: false # Deshabilita la instalación automática
+
+      # [CORRECCIÓN 2a] Usar actions/setup-node@v4 (más reciente) y configurar el caché
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' 
+          cache: 'pnpm' # Cachear con pnpm
 
       - name: 📦 Install dependencies
-        run: npm install
+        # [CORRECCIÓN 2b] Usar pnpm para la instalación
+        run: pnpm install --frozen-lockfile
 
-      - name: 🏗️ Build project
-        run: npm run build
-
+      - name: 🏗️ Build and Export project
+        # [CORRECCIÓN 3] Ejecutar la construcción Y la exportación estática para generar 'out/'
+        # Esto genera la carpeta 'out/' que la acción de FTP necesita.
+        run: pnpm run build && npx next export
+        
       - name: 📂 Sync build folder via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          local-dir: out/ # RUTA CORREGIDA: Apunta a la carpeta generada por 'next export'          server: ftps4.us.freehostia.com
+          local-dir: out/ # RUTA CORREGIDA: Apunta a la carpeta 'out/'
+          server: ftps4.us.freehostia.com
           username: estavi7
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: scratchup.com.co/
