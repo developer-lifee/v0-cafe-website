@@ -11,31 +11,31 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
 
-      # 1. Configuración de pnpm (CORRECCIÓN: Se especifica la versión)
+      # 1. Configuración de pnpm 
       - name: ⚙️ Set up pnpm
         uses: pnpm/action-setup@v3 
         with:
-          version: 9 # <--- ESTO SOLUCIONA EL ERROR "No pnpm version is specified"
+          version: 9
 
       # 2. Configuración de Node.js 20+ con caché pnpm
       - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v4 # Usar la versión más reciente del action
+        uses: actions/setup-node@v4
         with:
           node-version: '20' 
           cache: 'pnpm'
 
       - name: 📦 Install dependencies
-        # Temporalmente usamos --no-frozen-lockfile para pasar el error de desincronización
+        # Usa el flag temporal si el pnpm-lock.yaml no está sincronizado
         run: pnpm install --no-frozen-lockfile 
 
-      - name: 🏗️ Build and Export project
-        # 3. Ejecutar Build y Exportación estática para generar 'out/' (Soluciona el error de 'ENOENT: no such file or directory, scandir out/')
-        run: pnpm run build && npx next export
+      - name: 🏗️ Build project (Genera 'out/' automáticamente)
+        # 3. Solo necesitamos 'pnpm run build' ya que 'output: export' está en next.config.mjs
+        run: pnpm run build 
         
       - name: 📂 Sync build folder via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          # 4. Usa la carpeta 'out/' generada por 'next export' (Soluciona el error de 'dist/')
+          # 4. 'out/' es la carpeta correcta
           local-dir: out/
           server: ftps4.us.freehostia.com
           username: estavi7
