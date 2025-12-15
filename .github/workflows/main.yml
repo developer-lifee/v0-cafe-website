@@ -25,8 +25,7 @@ jobs:
       - name: 📂 Sync build folder via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          local-dir: dist/
-          server: ftps4.us.freehostia.com
+          local-dir: out/ # RUTA CORREGIDA: Apunta a la carpeta generada por 'next export'          server: ftps4.us.freehostia.com
           username: estavi7
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: scratchup.com.co/
