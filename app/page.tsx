@@ -89,11 +89,11 @@ export default function CaféPage() {
         <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image 
-              src="/images/design-mode/logo.png"
+              src="/images/logo.png"
               alt="SCRATCH UP Logo"
-              width={40}
+              width={32}
               height={40}
-              className="w-10 h-10"
+              className="w-8 h-10"
             />
             <span className="text-2xl font-bold">SCRATCH UP</span>
           </div>
@@ -154,11 +154,11 @@ export default function CaféPage() {
         <div className="relative max-w-7xl mx-auto px-4 py-32 md:py-48 text-center">
           <div className="mb-8 flex justify-center">
             <Image 
-              src="/images/design-mode/logo.png"
+              src="/images/logo.png"
               alt="SCRATCH UP"
-              width={120}
-              height={120}
-              className="w-28 h-28 md:w-32 md:h-32"
+              width={100}
+              height={130}
+              className="w-24 h-32 md:w-28 md:h-40"
             />
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
@@ -202,7 +202,7 @@ export default function CaféPage() {
           </div>
           <div className="bg-gradient-to-br from-primary/20 to-primary/5 p-2 rounded-lg border border-border overflow-hidden">
             <Image
-              src="/images/fachada-final.jpeg"
+              src="/images/logo.png"
               alt="Fachada SCRATCH UP"
               width={500}
               height={400}
