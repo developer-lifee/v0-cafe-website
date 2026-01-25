@@ -8,7 +8,7 @@
           "id": "tinto",
           "name": "Tinto Origen",
           "price": 1500,
-          "description": "Café negro de origen único",
+          "description": "Las 4 onzas de café más recargado que probarás. Cold brew de Moniquirá, calentado a la perfección",
           "optionGroups": []
         },
         {
@@ -509,13 +509,21 @@
           ]
         },
         {
-          "id": "combo-empanadas-carajillo",
-          "name": "2 Empanadas + 2 Carajillos",
+          "id": "combo-empanadas",
+          "name": "2 Empanadas",
           "price": 7000,
-          "description": "Combo clásico: Empanadas + Carajillos",
+          "description": "Dos empanadas recién horneadas",
+          "optionGroups": []
+        },
+        {
+          "id": "combo-carajillos",
+          "name": "2 Carajillos",
+          "price": 7000,
+          "description": "Dos carajillos para compartir",
           "optionGroups": []
         }
       ]
     }
   ]
 }
+
