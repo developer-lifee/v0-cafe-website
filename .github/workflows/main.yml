@@ -33,17 +33,18 @@ jobs:
         run: pnpm run build 
         
       - name: 🧹 Clean up conflicting files on FTP server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ftps4.us.freehostia.com
-          username: estavi7
-          password: ${{ secrets.FTP_PASSWORD }}
-          script: |
-            # Remove conflicting menu files/folders that could cause issues
-            rm -f /home/estavi7/scratchup.com.co/menu.html
-            rm -f /home/estavi7/scratchup.com.co/menu.txt
-            rm -rf /home/estavi7/scratchup.com.co/menu/
-            echo "Cleanup completed"
+        run: |
+          cat > /tmp/ftp_cleanup.sh << 'EOF'
+          #!/bin/bash
+          lftp -u estavi7,${{ secrets.FTP_PASSWORD }} ftps4.us.freehostia.com << 'LFTP'
+          cd scratchup.com.co/
+          rm -f menu.html
+          rm -f menu.txt
+          bye
+          LFTP
+          EOF
+          chmod +x /tmp/ftp_cleanup.sh
+          /tmp/ftp_cleanup.sh || true
         
       - name: 📂 Sync build folder via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
