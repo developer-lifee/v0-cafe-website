@@ -1,31 +1,11 @@
 import { NextResponse } from 'next/server'
 
-const menu = {
-  categories: [
-    {
-      id: 'bebidas',
-      title: 'Bebidas',
-      items: [
-        { name: 'Espresso', desc: 'Café intenso y concentrado, extracción perfecta', price: '$2.500' },
-        { name: 'Cappuccino', desc: 'Espresso con leche vaporizada y espuma', price: '$3.200' },
-        { name: 'Latte', desc: 'Espresso con abundante leche cremosa', price: '$4.500' },
-        { name: 'Americano', desc: 'Doble espresso diluido en agua caliente', price: '$4.000' },
-        { name: 'Bebidas con Jugos Naturales', desc: 'Jugos frescos naturales del día', price: '$3.500' },
-        { name: 'Bebidas Gasificadas', desc: 'Refrescantes opciones con gas', price: '$2.800' },
-      ],
-    },
-    {
-      id: 'comida',
-      title: 'Comida',
-      items: [
-        { name: 'Empanadas Horneadas', desc: 'Receta casera, horneadas al momento', price: '$4.000' },
-        { name: 'Tortas de Chocolate', desc: 'Deliciosa torta de chocolate artesanal', price: '$3.000' },
-        { name: 'Combo Espresso + Torta', desc: 'Combo perfecto: Espresso + Torta de Chocolate', price: '$5.000' },
-      ],
-    },
-  ],
-}
+// Mark this route as statically served to satisfy `next export`/static HTML export
+export const dynamic = 'force-static'
 
-export function GET() {
-  return NextResponse.json(menu)
+// Redirect to the static JSON we generated from the PDF. The file lives in `public/menu-from-pdf.json`
+export function GET(request: Request) {
+  const url = new URL(request.url)
+  // Redirect to the public static file so builds/export serve the JSON directly
+  return NextResponse.redirect(new URL('/menu-from-pdf.json', url).toString())
 }
