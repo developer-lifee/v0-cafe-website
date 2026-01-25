@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Menu, X, Wifi, Monitor, Coffee, MapPin, Phone, Mail, Check, ChevronLeft, ChevronRight, Gift, Heart, ChevronDown, Plus, Minus, Trash2, MessageCircle } from 'lucide-react'
+import { useState } from 'react'
+import { Menu, X, Wifi, Monitor, Coffee, MapPin, Phone, Mail, Check, ChevronLeft, ChevronRight, Gift, Heart } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -10,18 +10,10 @@ export default function CaféPage() {
   
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [selectedHours, setSelectedHours] = useState([])
-  const pricePerHour = 15000 // COP por hora
-  
+  const pricePerHour = 15000
+
   const [loyaltyPurchases, setLoyaltyPurchases] = useState(0)
   const [loyaltyTotal, setLoyaltyTotal] = useState(0)
-  const [menuData, setMenuData] = useState(null)
-  const [selectedItems, setSelectedItems] = useState({}) // track item selections
-  const [expandedItem, setExpandedItem] = useState(null) // track which item is showing options
-  
-  // Cart state
-  const [cart, setCart] = useState([]) // array of { item, selections, price }
-  const [showAddModal, setShowAddModal] = useState(false)
-  const [showCart, setShowCart] = useState(false)
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
@@ -54,155 +46,15 @@ export default function CaféPage() {
     setSelectedDate(newDate)
   }
 
-  // Track selected option for an item (supports both radio and checkbox)
-  const handleOptionSelect = (itemId, groupId, optionId, multiselect = false) => {
-    setSelectedItems(prev => {
-      const current = prev[itemId]?.[groupId] || (multiselect ? [] : null)
-      
-      if (multiselect) {
-        // For checkboxes: toggle in array
-        const updatedArray = Array.isArray(current) ? [...current] : []
-        const index = updatedArray.indexOf(optionId)
-        if (index > -1) {
-          updatedArray.splice(index, 1)
-        } else {
-          updatedArray.push(optionId)
-        }
-        return {
-          ...prev,
-          [itemId]: {
-            ...prev[itemId],
-            [groupId]: updatedArray
-          }
-        }
-      } else {
-        // For radio: single selection
-        return {
-          ...prev,
-          [itemId]: {
-            ...prev[itemId],
-            [groupId]: optionId
-          }
-        }
-      }
-    })
-  }
-
-  // Calculate price for item with selected options
-  const calculateItemPrice = (item) => {
-    let total = item.price || 0
-    const itemSelections = selectedItems[item.id] || {}
-    
-    if (item.optionGroups) {
-      item.optionGroups.forEach(group => {
-        const selectedValues = itemSelections[group.id]
-        
-        if (group.multiselect && Array.isArray(selectedValues)) {
-          // For multiselect: sum prices of all selected options
-          selectedValues.forEach(optionId => {
-            const selectedOption = group.options.find(o => o.id === optionId)
-            if (selectedOption && selectedOption.price) {
-              total += selectedOption.price
-            }
-          })
-        } else if (!group.multiselect && selectedValues) {
-          // For single select: add price of selected option
-          const selectedOption = group.options.find(o => o.id === selectedValues)
-          if (selectedOption && selectedOption.price) {
-            total += selectedOption.price
-          }
-        }
-      })
-    }
-    return total
-
-
-  // Calculate total in cart
-  const calculateCartTotal = () => {
-    return cart.reduce((sum, item) => sum + item.price, 0)
-  }
-
-  // Format cart item for WhatsApp message
-  const formatCartItemForWhatsApp = (item, selections) => {
-    let message = `• ${item.name}`
-    
-    if (item.optionGroups && Object.keys(selections).length > 0) {
-      item.optionGroups.forEach(group => {
-        const selected = selections[group.id]
-        if (selected) {
-          if (group.multiselect && Array.isArray(selected)) {
-            const optionNames = selected.map(optId => 
-              group.options.find(o => o.id === optId)?.name
-            ).filter(Boolean)
-            if (optionNames.length > 0) {
-              message += `\n  - ${group.name}: ${optionNames.join(', ')}`
-            }
-          } else if (!group.multiselect) {
-            const optionName = group.options.find(o => o.id === selected)?.name
-            if (optionName) {
-              message += `\n  - ${group.name}: ${optionName}`
-            }
-          }
-        }
-      })
-    }
-    return message
-  }
-
-  // Send order to WhatsApp
-  const sendToWhatsApp = (orderItems) => {
-    const phoneNumber = '573107946794' // Without + or spaces
-    let message = 'Mi pedido:\n\n'
-    
-    orderItems.forEach(item => {
-      message += formatCartItemForWhatsApp(item.item, item.selections) + `\n${item.price.toLocaleString('es-CO')} COP\n\n`
-    })
-    
-    message += `Total: ${orderItems.reduce((sum, item) => sum + item.price, 0).toLocaleString('es-CO')} COP`
-    
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, '_blank')
-  }
-
-  // Add item to cart
-  const handleAddToCart = (item) => {
-    const itemSelections = selectedItems[item.id] || {}
-    const itemPrice = calculateItemPrice(item)
-    
-    setCart([...cart, {
-      item,
-      selections: itemSelections,
-      price: itemPrice,
-      id: `${item.id}-${Date.now()}` // unique id for each cart item
-    }])
-    
-    // Reset selections and close modal
-    setSelectedItems(prev => {
-      const updated = { ...prev }
-      delete updated[item.id]
-      return updated
-    })
-    setExpandedItem(null)
-    setShowAddModal(true)
-  }
-
-  // Remove item from cart
-  const handleRemoveFromCart = (cartItemId) => {
-    setCart(cart.filter(item => item.id !== cartItemId))
-  }
-  }
-
   const renderCalendar = () => {
     const daysInMonth = getDaysInMonth(selectedDate)
     const firstDay = getFirstDayOfMonth(selectedDate)
     const days = []
 
-    // Empty cells for days before month starts
     for (let i = 0; i < firstDay; i++) {
       days.push(<div key={`empty-${i}`} className="h-10" />)
     }
 
-    // Days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day)
       const isToday = date.toDateString() === new Date().toDateString()
@@ -228,13 +80,6 @@ export default function CaféPage() {
     return days
   }
 
-  useEffect(() => {
-    fetch('/menu')
-      .then((res) => res.json())
-      .then((data) => setMenuData(data))
-      .catch((err) => console.error('Error cargando menú:', err))
-  }, [])
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
@@ -256,7 +101,7 @@ export default function CaféPage() {
             <Link href="#about" className="hover:text-primary transition">
               Sobre Nosotros
             </Link>
-            <Link href="#menu" className="hover:text-primary transition">
+            <Link href="/menu" className="hover:text-primary transition font-semibold text-primary">
               Menú
             </Link>
             <Link href="#loyalty" className="hover:text-primary transition">
@@ -285,7 +130,7 @@ export default function CaféPage() {
             <Link href="#about" className="hover:text-primary transition">
               Sobre Nosotros
             </Link>
-            <Link href="#menu" className="hover:text-primary transition">
+            <Link href="/menu" className="hover:text-primary transition font-semibold text-primary">
               Menú
             </Link>
             <Link href="#loyalty" className="hover:text-primary transition">
@@ -314,16 +159,16 @@ export default function CaféPage() {
               className="w-24 h-32 md:w-28 md:h-40"
             />
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
             <span className="text-primary">SCRATCH UP</span><br />
-            Café Calidad
+            Café Especializado
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Un espacio donde cualquier startup, sin importar su tamaño, puede crear y crecer. Café de especialidad de las mejores regiones colombianas.
+            Un espacio donde emprendedores y creativos pueden trabajar, conectar y disfrutar del mejor café artesanal. Ubicado en Engativá, Bogotá.
           </p>
-          <button className="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition transform hover:scale-105">
-            Visitanos Hoy
-          </button>
+          <Link href="/menu" className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition transform hover:scale-105">
+            Ver Menú Completo
+          </Link>
         </div>
       </section>
 
@@ -333,10 +178,10 @@ export default function CaféPage() {
           <div>
             <h2 className="text-4xl font-bold mb-6">Sobre SCRATCH UP</h2>
             <p className="text-lg text-muted-foreground mb-4">
-              SCRATCH UP es el lugar perfecto para que emprendedores, startups y profesionales creativos desarrollen sus ideas mientras disfrutan de café de calidad.
+              SCRATCH UP es el lugar perfecto para que emprendedores, startups y profesionales creativos desarrollen sus ideas mientras disfrutan de café artesanal de las mejores regiones colombianas.
             </p>
             <p className="text-lg text-muted-foreground mb-6">
-              Utilizamos café artesanal de las mejores regiones cafetaleras colombianas. Nuestros espacios están diseñados para que tu proyecto crezca, sin importar de dónde vengas ni cuán pequeño comiences.
+              Nuestros espacios están diseñados para que tu proyecto crezca, sin importar de dónde vengas ni cuán pequeño comiences. Ofrecemos WiFi premium, tecnología moderna y, por supuesto, el mejor café de la zona.
             </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -351,12 +196,16 @@ export default function CaféPage() {
                 <Check className="w-5 h-5 text-primary flex-shrink-0" />
                 <span>Comunidad de emprendedores</span>
               </div>
+              <div className="flex items-center gap-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span>Programa de fidelización</span>
+              </div>
             </div>
           </div>
           <div className="bg-gradient-to-br from-primary/20 to-primary/5 p-2 rounded-lg border border-border overflow-hidden">
             <Image
-              src="/images/logo.png"
-              alt="Fachada SCRATCH UP"
+              src="/logo.png"
+              alt="SCRATCH UP Café"
               width={500}
               height={400}
               className="w-full h-auto rounded-md object-cover"
@@ -365,131 +214,7 @@ export default function CaféPage() {
         </div>
       </section>
 
-      {/* Menu Section */}
-      <section id="menu" className="bg-secondary py-24">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-16 text-center">Nuestro Menú</h2>
-          
-          <div className="mb-16">
-            {!menuData && (
-              <p className="text-center text-muted-foreground">Cargando menú...</p>
-            )}
-
-            {menuData?.categories?.map((cat) => (
-              <div key={cat.id} className="mb-16">
-                <h3 className="text-2xl font-bold mb-8 text-center text-primary">{cat.title}</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {cat.items.map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-background border border-border rounded-lg overflow-hidden hover:border-primary transition hover:shadow-lg"
-                    >
-                      {/* Item Header */}
-                      <div
-                        className="p-6 cursor-pointer hover:bg-secondary/50 transition"
-                        onClick={() => setExpandedItem(expandedItem === item.id ? null : item.id)}
-                      >
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <h3 className="text-xl font-bold mb-2">{item.name}</h3>
-                            {item.description && (
-                              <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
-                            )}
-                          </div>
-                          {item.optionGroups && item.optionGroups.length > 0 && (
-                            <ChevronDown
-                              className={`w-5 h-5 text-primary transition-transform flex-shrink-0 ${
-                                expandedItem === item.id ? 'rotate-180' : ''
-                              }`}
-                            />
-                          )}
-                        </div>
-                        <p className="text-2xl font-bold text-primary">
-                          ${calculateItemPrice(item).toLocaleString('es-CO')}
-                        </p>
-                      </div>
-
-                      {/* Options Section */}
-                      {expandedItem === item.id && item.optionGroups && item.optionGroups.length > 0 && (
-                        <div className="border-t border-border p-6 bg-secondary/30">
-                          {item.optionGroups.map((group) => (
-                            <div key={group.id} className="mb-6 last:mb-0">
-                              <label className="text-sm font-semibold mb-3 block">
-                                {group.name}
-                                {group.required && <span className="text-primary">*</span>}
-                              </label>
-                              <div className="space-y-2">
-                                {group.options.map((option) => {
-                                  const isSelected = group.multiselect
-                                    ? Array.isArray(selectedItems[item.id]?.[group.id]) && selectedItems[item.id][group.id].includes(option.id)
-                                    : selectedItems[item.id]?.[group.id] === option.id
-                                  
-                                  return (
-                                    <label
-                                      key={option.id}
-                                      className="flex items-center gap-3 p-2 rounded hover:bg-background cursor-pointer transition"
-                                    >
-                                      {group.multiselect ? (
-                                        <input
-                                          type="checkbox"
-                                          checked={isSelected}
-                                          onChange={() => handleOptionSelect(item.id, group.id, option.id, true)}
-                                          className="w-4 h-4"
-                                        />
-                                      ) : (
-                                        <input
-                                          type="radio"
-                                          name={group.id}
-                                          checked={isSelected}
-                                          onChange={() => handleOptionSelect(item.id, group.id, option.id, false)}
-                                          className="w-4 h-4"
-                                        />
-                                      )}
-                                      <span className="flex-1">
-                                        {option.name}
-                                        {option.price > 0 && (
-                                          <span className="text-sm text-primary ml-2">
-                                            +${option.price.toLocaleString('es-CO')}
-                                          </span>
-                                        )}
-                                      </span>
-                                    </label>
-                                  )
-                                })}
-                              </div>
-                            </div>
-                          ))}
-                          <button 
-                            onClick={() => handleAddToCart(item)}
-                            className="w-full mt-4 bg-primary text-primary-foreground py-2 rounded-lg font-semibold hover:opacity-90 transition">
-                            Agregar al carrito
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Cart Button */}
-          {cart.length > 0 && (
-            <div className="fixed bottom-6 right-6 z-40">
-              <button
-                onClick={() => setShowCart(!showCart)}
-                className="bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:opacity-90 transition flex items-center justify-center relative"
-              >
-                <Coffee className="w-6 h-6" />
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
-                  {cart.length}
-                </span>
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
-
+      {/* Loyalty Section */}
       <section id="loyalty" className="max-w-7xl mx-auto px-4 py-24">
         <div className="mb-16">
           <h2 className="text-4xl font-bold mb-4 text-center">Programa de Fidelización</h2>
@@ -580,7 +305,7 @@ export default function CaféPage() {
                   </div>
                   <div>
                     <p className="font-semibold mb-1">Realiza 9 compras</p>
-                    <p className="text-sm opacity-90">Compra cualquier bebida o producto en SCRATCH UP</p>
+                    <p className="text-sm opacity-90">Compra cualquier bebida o producto</p>
                   </div>
                 </div>
 
@@ -590,7 +315,7 @@ export default function CaféPage() {
                   </div>
                   <div>
                     <p className="font-semibold mb-1">Calculamos el promedio</p>
-                    <p className="text-sm opacity-90">Promediamos el valor de tus 9 compras</p>
+                    <p className="text-sm opacity-90">Promediamos el valor de tus compras</p>
                   </div>
                 </div>
 
@@ -600,7 +325,7 @@ export default function CaféPage() {
                   </div>
                   <div>
                     <p className="font-semibold mb-1">Bebida gratis</p>
-                    <p className="text-sm opacity-90">Tu décima bebida es totalmente gratis por ese promedio</p>
+                    <p className="text-sm opacity-90">Tu décima bebida es totalmente gratis</p>
                   </div>
                 </div>
 
@@ -618,14 +343,14 @@ export default function CaféPage() {
 
             <div className="mt-8 p-4 bg-primary-foreground/10 rounded-lg border border-primary-foreground/20">
               <p className="text-sm">
-                Este programa existe para recompensarte por tu lealtad y ayudarnos a llenar nuestras horas tranquilas con clientes como tú.
+                Este programa existe para recompensarte por tu lealtad y ayudarnos a llenar nuestros espacios con clientes como tú.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Coworking Section - Interactive Hourly Booking */}
+      {/* Coworking Section */}
       <section id="coworking" className="max-w-7xl mx-auto px-4 py-24">
         <div className="mb-16">
           <h2 className="text-4xl font-bold mb-4 text-center">Espacios de Coworking</h2>
@@ -771,120 +496,6 @@ export default function CaféPage() {
           </div>
         </div>
       </section>
-
-      {/* Modal: Add to Cart Confirmation */}
-      {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-end md:items-center justify-center p-4">
-          <div className="bg-background rounded-lg shadow-lg w-full max-w-md p-6 animate-in slide-in-from-bottom-4">
-            <h3 className="text-xl font-bold mb-2">Producto agregado</h3>
-            <p className="text-muted-foreground mb-6">¿Qué deseas hacer?</p>
-            
-            <div className="flex gap-3">
-              <button
-                onClick={() => {
-                  if (cart.length > 0) {
-                    sendToWhatsApp([cart[cart.length - 1]])
-                  }
-                  setShowAddModal(false)
-                }}
-                className="flex-1 bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Pedir Ya
-              </button>
-              <button
-                onClick={() => setShowAddModal(false)}
-                className="flex-1 border border-border py-3 rounded-lg font-semibold hover:bg-secondary transition"
-              >
-                Agregar Otro
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Modal: Shopping Cart */}
-      {showCart && cart.length > 0 && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-end md:items-center justify-center p-4">
-          <div className="bg-background rounded-lg shadow-lg w-full max-w-md max-h-[80vh] overflow-y-auto flex flex-col">
-            {/* Header */}
-            <div className="sticky top-0 bg-background border-b border-border p-6 flex items-center justify-between">
-              <h3 className="text-2xl font-bold">Tu Carrito</h3>
-              <button
-                onClick={() => setShowCart(false)}
-                className="p-2 hover:bg-secondary rounded transition"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-
-            {/* Items */}
-            <div className="flex-1 p-6 space-y-4">
-              {cart.map((cartItem) => (
-                <div key={cartItem.id} className="border border-border rounded-lg p-4">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div className="flex-1">
-                      <h4 className="font-semibold">{cartItem.item.name}</h4>
-                      
-                      {/* Show selected options */}
-                      {Object.keys(cartItem.selections).length > 0 && (
-                        <div className="mt-2 space-y-1">
-                          {cartItem.item.optionGroups.map(group => {
-                            const selected = cartItem.selections[group.id]
-                            if (!selected) return null
-                            
-                            return (
-                              <div key={group.id} className="text-xs text-muted-foreground">
-                                {group.multiselect && Array.isArray(selected) ? (
-                                  <p>{group.name}: {selected.map(optId => 
-                                    group.options.find(o => o.id === optId)?.name
-                                  ).filter(Boolean).join(', ')}</p>
-                                ) : !group.multiselect ? (
-                                  <p>{group.name}: {group.options.find(o => o.id === selected)?.name}</p>
-                                ) : null}
-                              </div>
-                            )
-                          })}
-                        </div>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => handleRemoveFromCart(cartItem.id)}
-                      className="p-2 hover:bg-secondary rounded transition flex-shrink-0"
-                    >
-                      <Trash2 className="w-5 h-5 text-red-500" />
-                    </button>
-                  </div>
-                  <p className="text-lg font-bold text-primary">
-                    ${cartItem.price.toLocaleString('es-CO')}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Footer */}
-            <div className="sticky bottom-0 bg-background border-t border-border p-6 space-y-3">
-              <div className="flex justify-between items-center text-lg font-bold">
-                <span>Total:</span>
-                <span className="text-primary">
-                  ${calculateCartTotal().toLocaleString('es-CO')}
-                </span>
-              </div>
-              <button
-                onClick={() => {
-                  sendToWhatsApp(cart)
-                  setCart([])
-                  setShowCart(false)
-                }}
-                className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Enviar Comanda
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Footer */}
       <footer className="bg-secondary border-t border-border py-12">

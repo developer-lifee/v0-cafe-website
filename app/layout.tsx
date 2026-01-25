@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { CartProvider } from './context/CartContext'
 import './globals.css'
 
 const _poppins = Poppins({ 
@@ -27,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`font-sans antialiased`}>
-        {children}
-        <Analytics />
+        <CartProvider>
+          {children}
+          <Analytics />
+        </CartProvider>
       </body>
     </html>
   )
