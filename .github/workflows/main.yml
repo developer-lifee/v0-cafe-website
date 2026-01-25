@@ -32,6 +32,19 @@ jobs:
         # 3. Solo necesitamos 'pnpm run build' ya que 'output: export' está en next.config.mjs
         run: pnpm run build 
         
+      - name: 🧹 Clean up conflicting files on FTP server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ftps4.us.freehostia.com
+          username: estavi7
+          password: ${{ secrets.FTP_PASSWORD }}
+          script: |
+            # Remove conflicting menu files/folders that could cause issues
+            rm -f /home/estavi7/scratchup.com.co/menu.html
+            rm -f /home/estavi7/scratchup.com.co/menu.txt
+            rm -rf /home/estavi7/scratchup.com.co/menu/
+            echo "Cleanup completed"
+        
       - name: 📂 Sync build folder via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
