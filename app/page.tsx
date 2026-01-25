@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X, Wifi, Monitor, Coffee, MapPin, Phone, Mail, Check, ChevronLeft, ChevronRight, Gift, Heart } from 'lucide-react'
+import { Menu, X, Wifi, Monitor, Coffee, MapPin, Phone, Mail, Check, ChevronLeft, ChevronRight, Gift, Heart, ChevronDown, Plus, Minus } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -15,6 +15,8 @@ export default function CaféPage() {
   const [loyaltyPurchases, setLoyaltyPurchases] = useState(0)
   const [loyaltyTotal, setLoyaltyTotal] = useState(0)
   const [menuData, setMenuData] = useState(null)
+  const [selectedItems, setSelectedItems] = useState({}) // track item selections
+  const [expandedItem, setExpandedItem] = useState(null) // track which item is showing options
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
@@ -45,6 +47,36 @@ export default function CaféPage() {
     const newDate = new Date(selectedDate)
     newDate.setMonth(newDate.getMonth() + offset)
     setSelectedDate(newDate)
+  }
+
+  // Track selected option for an item
+  const handleOptionSelect = (itemId, groupId, optionId) => {
+    setSelectedItems(prev => ({
+      ...prev,
+      [itemId]: {
+        ...prev[itemId],
+        [groupId]: optionId
+      }
+    }))
+  }
+
+  // Calculate price for item with selected options
+  const calculateItemPrice = (item) => {
+    let total = item.price || 0
+    const itemSelections = selectedItems[item.id] || {}
+    
+    if (item.optionGroups) {
+      item.optionGroups.forEach(group => {
+        const selectedOptionId = itemSelections[group.id]
+        if (selectedOptionId) {
+          const selectedOption = group.options.find(o => o.id === selectedOptionId)
+          if (selectedOption && selectedOption.price) {
+            total += selectedOption.price
+          }
+        }
+      })
+    }
+    return total
   }
 
   const renderCalendar = () => {
@@ -231,17 +263,79 @@ export default function CaféPage() {
             )}
 
             {menuData?.categories?.map((cat) => (
-              <div key={cat.id} className="mb-12">
+              <div key={cat.id} className="mb-16">
                 <h3 className="text-2xl font-bold mb-8 text-center text-primary">{cat.title}</h3>
-                <div className="grid md:grid-cols-3 gap-8">
-                  {cat.items.map((item, i) => (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {cat.items.map((item) => (
                     <div
-                      key={i}
-                      className="bg-background border border-border p-6 rounded-lg hover:border-primary transition hover:shadow-lg"
+                      key={item.id}
+                      className="bg-background border border-border rounded-lg overflow-hidden hover:border-primary transition hover:shadow-lg"
                     >
-                      <h3 className="text-xl font-bold mb-2">{item.name}</h3>
-                      <p className="text-muted-foreground mb-4">{item.desc}</p>
-                      <p className="text-2xl font-bold text-primary">{item.price}</p>
+                      {/* Item Header */}
+                      <div
+                        className="p-6 cursor-pointer hover:bg-secondary/50 transition"
+                        onClick={() => setExpandedItem(expandedItem === item.id ? null : item.id)}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <h3 className="text-xl font-bold mb-2">{item.name}</h3>
+                            {item.description && (
+                              <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
+                            )}
+                          </div>
+                          {item.optionGroups && item.optionGroups.length > 0 && (
+                            <ChevronDown
+                              className={`w-5 h-5 text-primary transition-transform flex-shrink-0 ${
+                                expandedItem === item.id ? 'rotate-180' : ''
+                              }`}
+                            />
+                          )}
+                        </div>
+                        <p className="text-2xl font-bold text-primary">
+                          ${calculateItemPrice(item).toLocaleString('es-CO')}
+                        </p>
+                      </div>
+
+                      {/* Options Section */}
+                      {expandedItem === item.id && item.optionGroups && item.optionGroups.length > 0 && (
+                        <div className="border-t border-border p-6 bg-secondary/30">
+                          {item.optionGroups.map((group) => (
+                            <div key={group.id} className="mb-6 last:mb-0">
+                              <label className="text-sm font-semibold mb-3 block">
+                                {group.name}
+                                {group.required && <span className="text-primary">*</span>}
+                              </label>
+                              <div className="space-y-2">
+                                {group.options.map((option) => (
+                                  <label
+                                    key={option.id}
+                                    className="flex items-center gap-3 p-2 rounded hover:bg-background cursor-pointer transition"
+                                  >
+                                    <input
+                                      type="radio"
+                                      name={group.id}
+                                      checked={selectedItems[item.id]?.[group.id] === option.id}
+                                      onChange={() => handleOptionSelect(item.id, group.id, option.id)}
+                                      className="w-4 h-4"
+                                    />
+                                    <span className="flex-1">
+                                      {option.name}
+                                      {option.price > 0 && (
+                                        <span className="text-sm text-primary ml-2">
+                                          +${option.price.toLocaleString('es-CO')}
+                                        </span>
+                                      )}
+                                    </span>
+                                  </label>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                          <button className="w-full mt-4 bg-primary text-primary-foreground py-2 rounded-lg font-semibold hover:opacity-90 transition">
+                            Agregar al carrito
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

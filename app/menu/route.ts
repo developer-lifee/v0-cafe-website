@@ -8,7 +8,7 @@ export const dynamic = 'force-static'
 export async function GET() {
   try {
     // Read the menu JSON file from public directory
-    const menuPath = path.join(process.cwd(), 'public', 'menu-from-pdf.json')
+    const menuPath = path.join(process.cwd(), 'public', 'menu.json')
     const menuData = await fs.readFile(menuPath, 'utf-8')
     const menu = JSON.parse(menuData)
     return NextResponse.json(menu)

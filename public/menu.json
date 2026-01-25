@@ -1,0 +1,488 @@
+{
+  "categories": [
+    {
+      "id": "bebidas-calientes",
+      "title": "BEBIDAS CALIENTES",
+      "items": [
+        {
+          "id": "tinto",
+          "name": "Tinto Origen",
+          "price": 1500,
+          "description": "Café negro de origen único",
+          "optionGroups": []
+        },
+        {
+          "id": "espresso",
+          "name": "Espresso",
+          "price": 2500,
+          "description": "Café intenso y concentrado, extracción perfecta",
+          "optionGroups": []
+        },
+        {
+          "id": "americano",
+          "name": "Americano",
+          "price": 3000,
+          "description": "Doble espresso diluido en agua caliente",
+          "optionGroups": []
+        },
+        {
+          "id": "latte",
+          "name": "Latte",
+          "price": 4500,
+          "description": "Espresso con leche",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cappuccino",
+          "name": "Cappuccino",
+          "price": 3200,
+          "description": "Espresso con leche vaporizada y espuma",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "mocca",
+          "name": "Mocca",
+          "price": 4000,
+          "description": "Espresso con leche y chocolate",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "flat-white",
+          "name": "Flat White",
+          "price": 5000,
+          "description": "Espresso con leche microespumada",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "aromatica",
+          "name": "Aromática",
+          "price": 1500,
+          "description": "Infusión caliente",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": false,
+              "options": [
+                { "id": "sin-leche", "name": "Sin Leche", "price": 0 },
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "chocolate",
+          "name": "Chocolate",
+          "price": 3000,
+          "description": "Chocolate caliente",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "migao",
+          "name": "Migajón",
+          "price": 5000,
+          "description": "Bebida de avena con opciones de proteína",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bebidas-frias",
+      "title": "BEBIDAS FRÍAS",
+      "items": [
+        {
+          "id": "granizado",
+          "name": "Granizado",
+          "price": 6000,
+          "description": "Bebida congelada y refrescante",
+          "optionGroups": []
+        },
+        {
+          "id": "latte-helado",
+          "name": "Latte Helado",
+          "price": 5000,
+          "description": "Espresso con leche fría",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sodas",
+          "name": "Sodas",
+          "price": 4000,
+          "description": "Refrescante soda con sabor",
+          "optionGroups": [
+            {
+              "id": "sabor-soda",
+              "name": "Sabor",
+              "required": true,
+              "options": [
+                { "id": "fresa", "name": "Fresa", "price": 0 },
+                { "id": "limon", "name": "Limón", "price": 0 },
+                { "id": "guanabana", "name": "Guanabana", "price": 0 },
+                { "id": "mora", "name": "Mora", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "jugos-naturales",
+          "name": "Jugos Naturales",
+          "price": 3000,
+          "description": "Jugo fresco del día",
+          "optionGroups": [
+            {
+              "id": "tipo-jugo",
+              "name": "Tipo de Fruta",
+              "required": true,
+              "options": [
+                { "id": "mora", "name": "Mora", "price": 0 },
+                { "id": "fresa", "name": "Fresa", "price": 0 },
+                { "id": "banano", "name": "Banano", "price": 0 },
+                { "id": "guanabana", "name": "Guanabana", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "limonada-natural",
+          "name": "Limonada Natural",
+          "price": 3000,
+          "description": "Limonada fresca recién hecha",
+          "optionGroups": []
+        },
+        {
+          "id": "avena",
+          "name": "Avena",
+          "price": 3000,
+          "description": "Bebida de avena refrescante",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gym",
+      "title": "GYM / BATIDOS PROTEICOS",
+      "items": [
+        {
+          "id": "parfait",
+          "name": "Parfait",
+          "price": 6000,
+          "description": "Yogur con granola y frutas",
+          "optionGroups": [
+            {
+              "id": "frutas-adicionales",
+              "name": "Frutas Adicionales",
+              "required": false,
+              "options": [
+                { "id": "banano", "name": "Banano", "price": 0 },
+                { "id": "fresa", "name": "Fresa", "price": 0 },
+                { "id": "mora", "name": "Mora", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "batido-proteina",
+          "name": "Batido Proteico",
+          "price": 6000,
+          "description": "Vaso de avena con opciones de proteína y complementos",
+          "optionGroups": [
+            {
+              "id": "tipo-leche",
+              "name": "Tipo de Leche",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            },
+            {
+              "id": "fruta-batido",
+              "name": "Fruta",
+              "required": false,
+              "options": [
+                { "id": "banano", "name": "Banano", "price": 0 },
+                { "id": "fresa", "name": "Fresa", "price": 0 },
+                { "id": "mora", "name": "Mora", "price": 0 }
+              ]
+            },
+            {
+              "id": "incluir-avena",
+              "name": "¿Incluir Avena?",
+              "required": false,
+              "options": [
+                { "id": "con-avena", "name": "Con Avena", "price": 0 },
+                { "id": "sin-avena", "name": "Sin Avena", "price": 0 }
+              ]
+            },
+            {
+              "id": "proteina-premium",
+              "name": "Proteína Premium (+$2.000)",
+              "required": false,
+              "options": [
+                { "id": "proteina", "name": "Proteína en Polvo", "price": 2000 },
+                { "id": "creatina", "name": "Creatina", "price": 2000 },
+                { "id": "colageno", "name": "Colágeno", "price": 2000 }
+              ]
+            },
+            {
+              "id": "proteina-basica",
+              "name": "Complementos (+$1.000)",
+              "required": false,
+              "options": [
+                { "id": "tarrito-rojo", "name": "Tarrito Rojo", "price": 1000 },
+                { "id": "complemento-basico", "name": "Complemento Básico", "price": 1000 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "postres",
+      "title": "POSTRES",
+      "items": [
+        {
+          "id": "cheesecake-limon",
+          "name": "Cheesecake de Limón",
+          "price": 4000,
+          "description": "Delicioso cheesecake con sabor a limón",
+          "optionGroups": []
+        },
+        {
+          "id": "galletas-chocochip",
+          "name": "Galletas Chocochip",
+          "price": 2000,
+          "description": "Galletas caseras con chispas de chocolate",
+          "optionGroups": []
+        },
+        {
+          "id": "torta-banano",
+          "name": "Torta de Banano",
+          "price": 2000,
+          "description": "Torta casera de banano",
+          "optionGroups": []
+        }
+      ]
+    },
+    {
+      "id": "panaderia",
+      "title": "PANADERÍA",
+      "items": [
+        {
+          "id": "empanadas",
+          "name": "Empanadas",
+          "price": 3800,
+          "description": "Empanadas horneadas al momento",
+          "optionGroups": []
+        },
+        {
+          "id": "focaccia",
+          "name": "Focaccia",
+          "price": 5000,
+          "description": "Pan italiano recién horneado",
+          "optionGroups": []
+        }
+      ]
+    },
+    {
+      "id": "bebidas-con-licor",
+      "title": "BEBIDAS CON LICOR",
+      "items": [
+        {
+          "id": "canelazo",
+          "name": "Canelazo",
+          "price": 3000,
+          "description": "Bebida tradicional con canela",
+          "optionGroups": []
+        },
+        {
+          "id": "carajillo",
+          "name": "Carajillo",
+          "price": 4000,
+          "description": "Espresso con licor",
+          "optionGroups": []
+        },
+        {
+          "id": "guanaba-ron",
+          "name": "Guanabana Ron",
+          "price": 5000,
+          "description": "Bebida tropical con ron",
+          "optionGroups": []
+        }
+      ]
+    },
+    {
+      "id": "adiciones",
+      "title": "ADICIONES",
+      "items": [
+        {
+          "id": "leche-adicional",
+          "name": "Leche Adicional",
+          "price": 2000,
+          "description": "Cantidad extra de leche",
+          "optionGroups": []
+        },
+        {
+          "id": "chantilly",
+          "name": "Chantilly",
+          "price": 1000,
+          "description": "Crema batida",
+          "optionGroups": []
+        },
+        {
+          "id": "ron",
+          "name": "Ron",
+          "price": 4000,
+          "description": "Shot de ron",
+          "optionGroups": []
+        },
+        {
+          "id": "vainilla",
+          "name": "Vainilla",
+          "price": 1000,
+          "description": "Esencia de vainilla",
+          "optionGroups": []
+        },
+        {
+          "id": "caramelo",
+          "name": "Caramelo",
+          "price": 1000,
+          "description": "Sirope de caramelo",
+          "optionGroups": []
+        }
+      ]
+    },
+    {
+      "id": "combos",
+      "title": "COMBOS",
+      "items": [
+        {
+          "id": "combo-latte-cheesecake",
+          "name": "1 Latte + 1 Cheesecake",
+          "price": 7000,
+          "description": "Combo perfecto: Espresso con leche + Cheesecake",
+          "optionGroups": [
+            {
+              "id": "tipo-leche-combo",
+              "name": "Tipo de Leche para el Latte",
+              "required": true,
+              "options": [
+                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "combo-empanadas-carajillo",
+          "name": "2 Empanadas + 2 Carajillos",
+          "price": 7000,
+          "description": "Combo clásico: Empanadas + Carajillos",
+          "optionGroups": []
+        }
+      ]
+    }
+  ],
+  "globalOptionGroups": {
+    "tipo-leche": {
+      "name": "Tipo de Leche",
+      "options": [
+        { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
+        { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
+        { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+      ]
+    }
+  }
+}
