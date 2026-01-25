@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X, Wifi, Monitor, Coffee, MapPin, Phone, Mail, Check, ChevronLeft, ChevronRight, Gift, Heart, ChevronDown, Plus, Minus } from 'lucide-react'
+import { Menu, X, Wifi, Monitor, Coffee, MapPin, Phone, Mail, Check, ChevronLeft, ChevronRight, Gift, Heart, ChevronDown, Plus, Minus, Trash2, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -17,6 +17,11 @@ export default function CaféPage() {
   const [menuData, setMenuData] = useState(null)
   const [selectedItems, setSelectedItems] = useState({}) // track item selections
   const [expandedItem, setExpandedItem] = useState(null) // track which item is showing options
+  
+  // Cart state
+  const [cart, setCart] = useState([]) // array of { item, selections, price }
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [showCart, setShowCart] = useState(false)
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
@@ -110,6 +115,81 @@ export default function CaféPage() {
       })
     }
     return total
+
+
+  // Calculate total in cart
+  const calculateCartTotal = () => {
+    return cart.reduce((sum, item) => sum + item.price, 0)
+  }
+
+  // Format cart item for WhatsApp message
+  const formatCartItemForWhatsApp = (item, selections) => {
+    let message = `• ${item.name}`
+    
+    if (item.optionGroups && Object.keys(selections).length > 0) {
+      item.optionGroups.forEach(group => {
+        const selected = selections[group.id]
+        if (selected) {
+          if (group.multiselect && Array.isArray(selected)) {
+            const optionNames = selected.map(optId => 
+              group.options.find(o => o.id === optId)?.name
+            ).filter(Boolean)
+            if (optionNames.length > 0) {
+              message += `\n  - ${group.name}: ${optionNames.join(', ')}`
+            }
+          } else if (!group.multiselect) {
+            const optionName = group.options.find(o => o.id === selected)?.name
+            if (optionName) {
+              message += `\n  - ${group.name}: ${optionName}`
+            }
+          }
+        }
+      })
+    }
+    return message
+  }
+
+  // Send order to WhatsApp
+  const sendToWhatsApp = (orderItems) => {
+    const phoneNumber = '573107946794' // Without + or spaces
+    let message = 'Mi pedido:\n\n'
+    
+    orderItems.forEach(item => {
+      message += formatCartItemForWhatsApp(item.item, item.selections) + `\n${item.price.toLocaleString('es-CO')} COP\n\n`
+    })
+    
+    message += `Total: ${orderItems.reduce((sum, item) => sum + item.price, 0).toLocaleString('es-CO')} COP`
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, '_blank')
+  }
+
+  // Add item to cart
+  const handleAddToCart = (item) => {
+    const itemSelections = selectedItems[item.id] || {}
+    const itemPrice = calculateItemPrice(item)
+    
+    setCart([...cart, {
+      item,
+      selections: itemSelections,
+      price: itemPrice,
+      id: `${item.id}-${Date.now()}` // unique id for each cart item
+    }])
+    
+    // Reset selections and close modal
+    setSelectedItems(prev => {
+      const updated = { ...prev }
+      delete updated[item.id]
+      return updated
+    })
+    setExpandedItem(null)
+    setShowAddModal(true)
+  }
+
+  // Remove item from cart
+  const handleRemoveFromCart = (cartItemId) => {
+    setCart(cart.filter(item => item.id !== cartItemId))
+  }
   }
 
   const renderCalendar = () => {
