@@ -14,21 +14,8 @@ export const metadata: Metadata = {
   description: 'Café de especialidad moderno con espacios de coworking innovadores. Trabajo, café y comunidad en un solo lugar.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/logo.png',
-        type: 'image/png',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/logo.png',
+    apple: '/logo.png',
   },
 }
 

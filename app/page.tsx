@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X, Wifi, Monitor, Coffee, MapPin, Phone, Mail, Check, ChevronLeft, ChevronRight, Gift, Heart } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -14,6 +14,7 @@ export default function CaféPage() {
   
   const [loyaltyPurchases, setLoyaltyPurchases] = useState(0)
   const [loyaltyTotal, setLoyaltyTotal] = useState(0)
+  const [menuData, setMenuData] = useState(null)
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
@@ -81,6 +82,13 @@ export default function CaféPage() {
 
     return days
   }
+
+  useEffect(() => {
+    fetch('/menu')
+      .then((res) => res.json())
+      .then((data) => setMenuData(data))
+      .catch((err) => console.error('Error cargando menú:', err))
+  }, [])
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -218,82 +226,27 @@ export default function CaféPage() {
           <h2 className="text-4xl font-bold mb-16 text-center">Nuestro Menú</h2>
           
           <div className="mb-16">
-            <h3 className="text-2xl font-bold mb-8 text-center text-primary">Bebidas</h3>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: 'Espresso',
-                  desc: 'Café intenso y concentrado, extracción perfecta',
-                  price: '$2.500',
-                },
-                {
-                  name: 'Cappuccino',
-                  desc: 'Espresso con leche vaporizada y espuma',
-                  price: '$3.200',
-                },
-                {
-                  name: 'Latte',
-                  desc: 'Espresso con abundante leche cremosa',
-                  price: '$4.500',
-                },
-                {
-                  name: 'Americano',
-                  desc: 'Doble espresso diluido en agua caliente',
-                  price: '$4.000',
-                },
-                {
-                  name: 'Bebidas con Jugos Naturales',
-                  desc: 'Jugos frescos naturales del día',
-                  price: '$3.500',
-                },
-                {
-                  name: 'Bebidas Gasificadas',
-                  desc: 'Refrescantes opciones con gas',
-                  price: '$2.800',
-                },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="bg-background border border-border p-6 rounded-lg hover:border-primary transition hover:shadow-lg"
-                >
-                  <h3 className="text-xl font-bold mb-2">{item.name}</h3>
-                  <p className="text-muted-foreground mb-4">{item.desc}</p>
-                  <p className="text-2xl font-bold text-primary">{item.price}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+            {!menuData && (
+              <p className="text-center text-muted-foreground">Cargando menú...</p>
+            )}
 
-          <div>
-            <h3 className="text-2xl font-bold mb-8 text-center text-primary">Comida</h3>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: 'Empanadas Horneadas',
-                  desc: 'Receta casera, horneadas al momento',
-                  price: '$4.000',
-                },
-                {
-                  name: 'Tortas de Chocolate',
-                  desc: 'Deliciosa torta de chocolate artesanal',
-                  price: '$3.000',
-                },
-                {
-                  name: 'Combo Espresso + Torta',
-                  desc: 'Combo perfecto: Espresso + Torta de Chocolate',
-                  price: '$5.000',
-                },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="bg-background border border-border p-6 rounded-lg hover:border-primary transition hover:shadow-lg"
-                >
-                  <h3 className="text-xl font-bold mb-2">{item.name}</h3>
-                  <p className="text-muted-foreground mb-4">{item.desc}</p>
-                  <p className="text-2xl font-bold text-primary">{item.price}</p>
+            {menuData?.categories?.map((cat) => (
+              <div key={cat.id} className="mb-12">
+                <h3 className="text-2xl font-bold mb-8 text-center text-primary">{cat.title}</h3>
+                <div className="grid md:grid-cols-3 gap-8">
+                  {cat.items.map((item, i) => (
+                    <div
+                      key={i}
+                      className="bg-background border border-border p-6 rounded-lg hover:border-primary transition hover:shadow-lg"
+                    >
+                      <h3 className="text-xl font-bold mb-2">{item.name}</h3>
+                      <p className="text-muted-foreground mb-4">{item.desc}</p>
+                      <p className="text-2xl font-bold text-primary">{item.price}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
