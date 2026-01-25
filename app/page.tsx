@@ -459,7 +459,9 @@ export default function CaféPage() {
                               </div>
                             </div>
                           ))}
-                          <button className="w-full mt-4 bg-primary text-primary-foreground py-2 rounded-lg font-semibold hover:opacity-90 transition">
+                          <button 
+                            onClick={() => handleAddToCart(item)}
+                            className="w-full mt-4 bg-primary text-primary-foreground py-2 rounded-lg font-semibold hover:opacity-90 transition">
                             Agregar al carrito
                           </button>
                         </div>
@@ -470,6 +472,21 @@ export default function CaféPage() {
               </div>
             ))}
           </div>
+
+          {/* Cart Button */}
+          {cart.length > 0 && (
+            <div className="fixed bottom-6 right-6 z-40">
+              <button
+                onClick={() => setShowCart(!showCart)}
+                className="bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:opacity-90 transition flex items-center justify-center relative"
+              >
+                <Coffee className="w-6 h-6" />
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+                  {cart.length}
+                </span>
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -754,6 +771,120 @@ export default function CaféPage() {
           </div>
         </div>
       </section>
+
+      {/* Modal: Add to Cart Confirmation */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-end md:items-center justify-center p-4">
+          <div className="bg-background rounded-lg shadow-lg w-full max-w-md p-6 animate-in slide-in-from-bottom-4">
+            <h3 className="text-xl font-bold mb-2">Producto agregado</h3>
+            <p className="text-muted-foreground mb-6">¿Qué deseas hacer?</p>
+            
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  if (cart.length > 0) {
+                    sendToWhatsApp([cart[cart.length - 1]])
+                  }
+                  setShowAddModal(false)
+                }}
+                className="flex-1 bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Pedir Ya
+              </button>
+              <button
+                onClick={() => setShowAddModal(false)}
+                className="flex-1 border border-border py-3 rounded-lg font-semibold hover:bg-secondary transition"
+              >
+                Agregar Otro
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal: Shopping Cart */}
+      {showCart && cart.length > 0 && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-end md:items-center justify-center p-4">
+          <div className="bg-background rounded-lg shadow-lg w-full max-w-md max-h-[80vh] overflow-y-auto flex flex-col">
+            {/* Header */}
+            <div className="sticky top-0 bg-background border-b border-border p-6 flex items-center justify-between">
+              <h3 className="text-2xl font-bold">Tu Carrito</h3>
+              <button
+                onClick={() => setShowCart(false)}
+                className="p-2 hover:bg-secondary rounded transition"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Items */}
+            <div className="flex-1 p-6 space-y-4">
+              {cart.map((cartItem) => (
+                <div key={cartItem.id} className="border border-border rounded-lg p-4">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div className="flex-1">
+                      <h4 className="font-semibold">{cartItem.item.name}</h4>
+                      
+                      {/* Show selected options */}
+                      {Object.keys(cartItem.selections).length > 0 && (
+                        <div className="mt-2 space-y-1">
+                          {cartItem.item.optionGroups.map(group => {
+                            const selected = cartItem.selections[group.id]
+                            if (!selected) return null
+                            
+                            return (
+                              <div key={group.id} className="text-xs text-muted-foreground">
+                                {group.multiselect && Array.isArray(selected) ? (
+                                  <p>{group.name}: {selected.map(optId => 
+                                    group.options.find(o => o.id === optId)?.name
+                                  ).filter(Boolean).join(', ')}</p>
+                                ) : !group.multiselect ? (
+                                  <p>{group.name}: {group.options.find(o => o.id === selected)?.name}</p>
+                                ) : null}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => handleRemoveFromCart(cartItem.id)}
+                      className="p-2 hover:bg-secondary rounded transition flex-shrink-0"
+                    >
+                      <Trash2 className="w-5 h-5 text-red-500" />
+                    </button>
+                  </div>
+                  <p className="text-lg font-bold text-primary">
+                    ${cartItem.price.toLocaleString('es-CO')}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="sticky bottom-0 bg-background border-t border-border p-6 space-y-3">
+              <div className="flex justify-between items-center text-lg font-bold">
+                <span>Total:</span>
+                <span className="text-primary">
+                  ${calculateCartTotal().toLocaleString('es-CO')}
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  sendToWhatsApp(cart)
+                  setCart([])
+                  setShowCart(false)
+                }}
+                className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Enviar Comanda
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-secondary border-t border-border py-12">
