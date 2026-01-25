@@ -49,15 +49,38 @@ export default function CaféPage() {
     setSelectedDate(newDate)
   }
 
-  // Track selected option for an item
-  const handleOptionSelect = (itemId, groupId, optionId) => {
-    setSelectedItems(prev => ({
-      ...prev,
-      [itemId]: {
-        ...prev[itemId],
-        [groupId]: optionId
+  // Track selected option for an item (supports both radio and checkbox)
+  const handleOptionSelect = (itemId, groupId, optionId, multiselect = false) => {
+    setSelectedItems(prev => {
+      const current = prev[itemId]?.[groupId] || (multiselect ? [] : null)
+      
+      if (multiselect) {
+        // For checkboxes: toggle in array
+        const updatedArray = Array.isArray(current) ? [...current] : []
+        const index = updatedArray.indexOf(optionId)
+        if (index > -1) {
+          updatedArray.splice(index, 1)
+        } else {
+          updatedArray.push(optionId)
+        }
+        return {
+          ...prev,
+          [itemId]: {
+            ...prev[itemId],
+            [groupId]: updatedArray
+          }
+        }
+      } else {
+        // For radio: single selection
+        return {
+          ...prev,
+          [itemId]: {
+            ...prev[itemId],
+            [groupId]: optionId
+          }
+        }
       }
-    }))
+    })
   }
 
   // Calculate price for item with selected options
@@ -67,9 +90,19 @@ export default function CaféPage() {
     
     if (item.optionGroups) {
       item.optionGroups.forEach(group => {
-        const selectedOptionId = itemSelections[group.id]
-        if (selectedOptionId) {
-          const selectedOption = group.options.find(o => o.id === selectedOptionId)
+        const selectedValues = itemSelections[group.id]
+        
+        if (group.multiselect && Array.isArray(selectedValues)) {
+          // For multiselect: sum prices of all selected options
+          selectedValues.forEach(optionId => {
+            const selectedOption = group.options.find(o => o.id === optionId)
+            if (selectedOption && selectedOption.price) {
+              total += selectedOption.price
+            }
+          })
+        } else if (!group.multiselect && selectedValues) {
+          // For single select: add price of selected option
+          const selectedOption = group.options.find(o => o.id === selectedValues)
           if (selectedOption && selectedOption.price) {
             total += selectedOption.price
           }
@@ -306,28 +339,43 @@ export default function CaféPage() {
                                 {group.required && <span className="text-primary">*</span>}
                               </label>
                               <div className="space-y-2">
-                                {group.options.map((option) => (
-                                  <label
-                                    key={option.id}
-                                    className="flex items-center gap-3 p-2 rounded hover:bg-background cursor-pointer transition"
-                                  >
-                                    <input
-                                      type="radio"
-                                      name={group.id}
-                                      checked={selectedItems[item.id]?.[group.id] === option.id}
-                                      onChange={() => handleOptionSelect(item.id, group.id, option.id)}
-                                      className="w-4 h-4"
-                                    />
-                                    <span className="flex-1">
-                                      {option.name}
-                                      {option.price > 0 && (
-                                        <span className="text-sm text-primary ml-2">
-                                          +${option.price.toLocaleString('es-CO')}
-                                        </span>
+                                {group.options.map((option) => {
+                                  const isSelected = group.multiselect
+                                    ? Array.isArray(selectedItems[item.id]?.[group.id]) && selectedItems[item.id][group.id].includes(option.id)
+                                    : selectedItems[item.id]?.[group.id] === option.id
+                                  
+                                  return (
+                                    <label
+                                      key={option.id}
+                                      className="flex items-center gap-3 p-2 rounded hover:bg-background cursor-pointer transition"
+                                    >
+                                      {group.multiselect ? (
+                                        <input
+                                          type="checkbox"
+                                          checked={isSelected}
+                                          onChange={() => handleOptionSelect(item.id, group.id, option.id, true)}
+                                          className="w-4 h-4"
+                                        />
+                                      ) : (
+                                        <input
+                                          type="radio"
+                                          name={group.id}
+                                          checked={isSelected}
+                                          onChange={() => handleOptionSelect(item.id, group.id, option.id, false)}
+                                          className="w-4 h-4"
+                                        />
                                       )}
-                                    </span>
-                                  </label>
-                                ))}
+                                      <span className="flex-1">
+                                        {option.name}
+                                        {option.price > 0 && (
+                                          <span className="text-sm text-primary ml-2">
+                                            +${option.price.toLocaleString('es-CO')}
+                                          </span>
+                                        )}
+                                      </span>
+                                    </label>
+                                  )
+                                })}
                               </div>
                             </div>
                           ))}
