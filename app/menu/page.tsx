@@ -136,7 +136,7 @@ export default function MenuPage() {
   }
 
   useEffect(() => {
-    fetch('/menu')
+    fetch('/menu.json')
       .then((res) => res.json())
       .then((data) => setMenuData(data))
       .catch((err) => console.error('Error cargando menú:', err))
