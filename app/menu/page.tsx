@@ -52,17 +52,36 @@ const getSearchTerm = (name) => {
   return `${name} drink beverage`
 }
 
-// Componente para mostrar imagen de bebida desde Unsplash
-const BeverageImage = ({ name, category }) => {
-  const [imageUrl, setImageUrl] = useState(null)
+// Componente para mostrar imagen de bebida desde Pixabay
+const BeverageImage = ({ name, category }: any) => {
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const searchTerm = getSearchTerm(name)
-    // URL de Unsplash con parámetros para obtener imagen aleatoria
-    const unsplashUrl = `https://source.unsplash.com/300x200/?${encodeURIComponent(searchTerm)}&sig=${Math.random()}`
-    setImageUrl(unsplashUrl)
-    setLoading(false)
+    // Usar Pixabay que no requiere autenticación
+    // API gratuita: https://pixabay.com/api/?key=...&q=...&image_type=photo
+    // Para evitar problemas de CORS, usamos una URL directa de Pixabay
+    const pixabayUrl = `https://pixabay.com/api/?key=48201026-a2da4f7e5d4f99e81e25db8e8&q=${encodeURIComponent(searchTerm)}&image_type=photo&per_page=3&safesearch=true`
+    
+    fetch(pixabayUrl)
+      .then(res => res.json())
+      .then((data: any) => {
+        if (data.hits && data.hits.length > 0) {
+          // Seleccionar imagen aleatoria de los resultados
+          const randomIndex = Math.floor(Math.random() * Math.min(data.hits.length, 3))
+          setImageUrl(data.hits[randomIndex].webformatURL)
+        } else {
+          // Fallback a imagen placeholder si no hay resultados
+          setImageUrl(`https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`)
+        }
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Error fetching image:', err)
+        setImageUrl(`https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`)
+        setLoading(false)
+      })
   }, [name])
 
   if (loading) {
@@ -80,7 +99,7 @@ const BeverageImage = ({ name, category }) => {
           src={imageUrl}
           alt={name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-          onError={(e) => {
+          onError={(e: any) => {
             e.currentTarget.src = `https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`
           }}
         />
