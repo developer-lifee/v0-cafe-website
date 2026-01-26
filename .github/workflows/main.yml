@@ -32,20 +32,27 @@ jobs:
         # 3. Solo necesitamos 'pnpm run build' ya que 'output: export' está en next.config.mjs
         run: pnpm run build 
         
-      - name: 📂 Sync build folder via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          # 4. 'out/' es la carpeta correcta
-          local-dir: out/
-          server: ftps4.us.freehostia.com
-          username: estavi7
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: scratchup.com.co/
-          # Configuraciones adicionales para mejor compatibilidad
-          protocol: ftps
-          port: 21
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/node_modules/**
-            **/package-lock.json
+      - name: 📂 Deploy via FTP using lftp
+        env:
+          FTP_HOST: ftps4.us.freehostia.com
+          FTP_USER: estavi7
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIR: scratchup.com.co
+        run: |
+          # Install lftp if not available
+          command -v lftp >/dev/null 2>&1 || sudo apt-get install -y lftp
+          
+          # Create lftp script
+          cat > /tmp/deploy.lftp << 'SCRIPT'
+          set ftp:ssl-allow true
+          set ftp:use-mdtm off
+          set net:max-retries 3
+          set net:timeout 10
+          open ftps://$FTP_USER:$FTP_PASS@$FTP_HOST
+          cd $FTP_DIR
+          mirror --reverse --continue --delete --verbose ./out/ .
+          bye
+          SCRIPT
+          
+          # Run deployment
+          lftp -f /tmp/deploy.lftp
