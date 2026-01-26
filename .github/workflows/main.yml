@@ -41,3 +41,11 @@ jobs:
           username: estavi7
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: scratchup.com.co/
+          # Configuraciones adicionales para mejor compatibilidad
+          protocol: ftps
+          port: 21
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/node_modules/**
+            **/package-lock.json
