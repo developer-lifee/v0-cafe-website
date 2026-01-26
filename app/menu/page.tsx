@@ -6,56 +6,87 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '../context/CartContext'
 
-// Componente para generar SVG de bebida basado en el nombre
-const BeverageImage = ({ name, category }) => {
-  const getColorByCategory = (cat) => {
-    const colors = {
-      'Aromáticas': '#8B4513',
-      'Cafés Especiales': '#6F4E37',
-      'Bebidas Frías': '#1E90FF',
-      'Jugos Naturales': '#FF6347',
-      'Combos': '#FFD700',
-      'Espresso': '#3D2817',
-      'Tinto Origen': '#4A2C1A'
+// Mapeo de nombres de bebidas a criterios de búsqueda reales
+const BEVERAGE_SEARCH_MAPPING = {
+  'guanabarón': 'guanabana juice tropical',
+  'café especial': 'specialty coffee latte',
+  'cappuccino': 'cappuccino coffee cup',
+  'espresso': 'espresso coffee shot',
+  'americano': 'americano black coffee',
+  'macchiato': 'macchiato coffee',
+  'cortado': 'cortado coffee',
+  'café': 'black coffee',
+  'té': 'hot tea cup',
+  'té verde': 'green tea',
+  'té negro': 'black tea',
+  'café helado': 'iced coffee cold brew',
+  'frappuccino': 'frappuccino blended coffee',
+  'jugo': 'fresh juice',
+  'jugo natural': 'fresh pressed juice',
+  'zumo': 'fresh juice',
+  'batido': 'smoothie shake',
+  'smoothie': 'fruit smoothie',
+  'limonada': 'lemonade drink',
+  'agua fresca': 'agua fresca traditional',
+  'horchata': 'horchata drink',
+  'chocolate': 'hot chocolate drink',
+  'chai': 'chai tea spiced',
+  'matcha': 'matcha green tea',
+  'expreso': 'espresso coffee shot',
+  'tinto': 'small black coffee',
+  'colada': 'cafe colada cuban coffee'
+}
+
+// Función para obtener criterio de búsqueda
+const getSearchTerm = (name) => {
+  const lower = name.toLowerCase().trim()
+  
+  // Buscar coincidencia exacta o parcial en el mapeo
+  for (const [key, value] of Object.entries(BEVERAGE_SEARCH_MAPPING)) {
+    if (lower.includes(key) || key.includes(lower)) {
+      return value
     }
-    return colors[cat] || '#A0826D'
+  }
+  
+  // Si no hay coincidencia, usar el nombre como criterio genérico
+  return `${name} drink beverage`
+}
+
+// Componente para mostrar imagen de bebida desde Unsplash
+const BeverageImage = ({ name, category }) => {
+  const [imageUrl, setImageUrl] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const searchTerm = getSearchTerm(name)
+    // URL de Unsplash con parámetros para obtener imagen aleatoria
+    const unsplashUrl = `https://source.unsplash.com/300x200/?${encodeURIComponent(searchTerm)}&sig=${Math.random()}`
+    setImageUrl(unsplashUrl)
+    setLoading(false)
+  }, [name])
+
+  if (loading) {
+    return (
+      <div className="w-full h-48 bg-gradient-to-br from-secondary to-secondary/50 animate-pulse flex items-center justify-center">
+        <Droplets className="w-8 h-8 text-muted-foreground" />
+      </div>
+    )
   }
 
-  const color = getColorByCategory(category)
-
   return (
-    <svg width="100%" height="200" viewBox="0 0 200 200" className="bg-gradient-to-br from-secondary to-secondary/50">
-      {/* Fondo decorativo */}
-      <defs>
-        <linearGradient id={`grad-${name}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style={{ stopColor: color, stopOpacity: 0.1 }} />
-          <stop offset="100%" style={{ stopColor: color, stopOpacity: 0.3 }} />
-        </linearGradient>
-      </defs>
-
-      <rect width="200" height="200" fill={`url(#grad-${name})`} />
-
-      {/* Granos de café decorativos */}
-      <circle cx="30" cy="30" r="4" fill={color} opacity="0.6" />
-      <circle cx="170" cy="40" r="5" fill={color} opacity="0.5" />
-      <circle cx="160" cy="170" r="4" fill={color} opacity="0.6" />
-      <circle cx="40" cy="180" r="5" fill={color} opacity="0.5" />
-
-      {/* Vaso/taza */}
-      <rect x="60" y="60" width="80" height="100" rx="5" fill="none" stroke={color} strokeWidth="2" />
-      <path d="M 140 80 Q 155 85 155 110 Q 155 125 140 130" fill="none" stroke={color} strokeWidth="2" />
-
-      {/* Líquido dentro */}
-      <rect x="62" y="80" width="76" height="76" rx="3" fill={color} opacity="0.3" />
-
-      {/* Espuma */}
-      <circle cx="85" cy="72" r="4" fill={color} opacity="0.6" />
-      <circle cx="100" cy="68" r="5" fill={color} opacity="0.5" />
-      <circle cx="115" cy="72" r="4" fill={color} opacity="0.6" />
-
-      {/* Icono de gota */}
-      <path d="M 100 150 Q 95 160 100 168 Q 105 160 100 150" fill={color} opacity="0.7" />
-    </svg>
+    <div className="w-full h-48 bg-secondary/30 overflow-hidden relative group">
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt={name}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          onError={(e) => {
+            e.currentTarget.src = `https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`
+          }}
+        />
+      )}
+      <div className="absolute inset-0 bg-black/10"></div>
+    </div>
   )
 }
 
