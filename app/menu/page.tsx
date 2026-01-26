@@ -6,103 +6,27 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '../context/CartContext'
 
-// Mapeo de nombres de bebidas a criterios de búsqueda reales
-const BEVERAGE_SEARCH_MAPPING = {
-  'guanabarón': 'guanabana juice tropical',
-  'café especial': 'specialty coffee latte',
-  'cappuccino': 'cappuccino coffee cup',
-  'espresso': 'espresso coffee shot',
-  'americano': 'americano black coffee',
-  'macchiato': 'macchiato coffee',
-  'cortado': 'cortado coffee',
-  'café': 'black coffee',
-  'té': 'hot tea cup',
-  'té verde': 'green tea',
-  'té negro': 'black tea',
-  'café helado': 'iced coffee cold brew',
-  'frappuccino': 'frappuccino blended coffee',
-  'jugo': 'fresh juice',
-  'jugo natural': 'fresh pressed juice',
-  'zumo': 'fresh juice',
-  'batido': 'smoothie shake',
-  'smoothie': 'fruit smoothie',
-  'limonada': 'lemonade drink',
-  'agua fresca': 'agua fresca traditional',
-  'horchata': 'horchata drink',
-  'chocolate': 'hot chocolate drink',
-  'chai': 'chai tea spiced',
-  'matcha': 'matcha green tea',
-  'expreso': 'espresso coffee shot',
-  'tinto': 'small black coffee',
-  'colada': 'cafe colada cuban coffee'
-}
-
-// Función para obtener criterio de búsqueda
-const getSearchTerm = (name) => {
-  const lower = name.toLowerCase().trim()
-  
-  // Buscar coincidencia exacta o parcial en el mapeo
-  for (const [key, value] of Object.entries(BEVERAGE_SEARCH_MAPPING)) {
-    if (lower.includes(key) || key.includes(lower)) {
-      return value
-    }
-  }
-  
-  // Si no hay coincidencia, usar el nombre como criterio genérico
-  return `${name} drink beverage`
-}
-
-// Componente para mostrar imagen de bebida desde Pixabay
-const BeverageImage = ({ name, category }: any) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+// Componente para mostrar imagen de bebida desde JSON
+const BeverageImage = ({ imageUrl, name }: any) => {
   const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const searchTerm = getSearchTerm(name)
-    // Usar Pixabay que no requiere autenticación
-    // API gratuita: https://pixabay.com/api/?key=...&q=...&image_type=photo
-    // Para evitar problemas de CORS, usamos una URL directa de Pixabay
-    const pixabayUrl = `https://pixabay.com/api/?key=48201026-a2da4f7e5d4f99e81e25db8e8&q=${encodeURIComponent(searchTerm)}&image_type=photo&per_page=3&safesearch=true`
-    
-    fetch(pixabayUrl)
-      .then(res => res.json())
-      .then((data: any) => {
-        if (data.hits && data.hits.length > 0) {
-          // Seleccionar imagen aleatoria de los resultados
-          const randomIndex = Math.floor(Math.random() * Math.min(data.hits.length, 3))
-          setImageUrl(data.hits[randomIndex].webformatURL)
-        } else {
-          // Fallback a imagen placeholder si no hay resultados
-          setImageUrl(`https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`)
-        }
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error('Error fetching image:', err)
-        setImageUrl(`https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`)
-        setLoading(false)
-      })
-  }, [name])
-
-  if (loading) {
-    return (
-      <div className="w-full h-48 bg-gradient-to-br from-secondary to-secondary/50 animate-pulse flex items-center justify-center">
-        <Droplets className="w-8 h-8 text-muted-foreground" />
-      </div>
-    )
-  }
 
   return (
     <div className="w-full h-48 bg-secondary/30 overflow-hidden relative group">
-      {imageUrl && (
+      {imageUrl ? (
         <img
           src={imageUrl}
           alt={name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          onLoad={() => setLoading(false)}
           onError={(e: any) => {
             e.currentTarget.src = `https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`
+            setLoading(false)
           }}
         />
+      ) : (
+        <div className="w-full h-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center">
+          <Droplets className="w-8 h-8 text-muted-foreground" />
+        </div>
       )}
       <div className="absolute inset-0 bg-black/10"></div>
     </div>
@@ -289,7 +213,7 @@ export default function MenuPage() {
                   >
                     {/* Imagen del producto */}
                     <div className="h-48 bg-gradient-to-br from-secondary to-secondary/50 overflow-hidden">
-                      <BeverageImage name={item.name} category={cat.title} />
+                      <BeverageImage imageUrl={item.imageUrl} name={item.name} />
                     </div>
 
                     {/* Item Header */}

@@ -9,6 +9,7 @@
           "name": "Tinto Origen",
           "price": 1500,
           "description": "Las 4 onzas de café más recargado que probarás. Cold brew de Moniquirá, calentado a la perfección",
+          "imageUrl": "https://images.unsplash.com/photo-1559056199-641a0ac8b3f7?w=400&h=300&fit=crop",
           "optionGroups": []
         },
         {
@@ -60,6 +61,7 @@
           "name": "Cappuccino",
           "price": 3200,
           "description": "Espresso con leche vaporizada y espuma",
+          "imageUrl": "https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=300&fit=crop",
           "optionGroups": [
             {
               "id": "tipo-leche",
