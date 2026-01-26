@@ -285,14 +285,14 @@ export default function MenuPage() {
               <button
                 onClick={() => {
                   if (cart.length > 0) {
-                    sendToWhatsApp([cart[cart.length - 1]])
+                    sendToWhatsApp(cart)
                   }
                   setShowAddModal(false)
                 }}
                 className="flex-1 bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-5 h-5" />
-                Pedir Ya
+                Enviar Pedido
               </button>
               <button
                 onClick={() => setShowAddModal(false)}
@@ -379,7 +379,7 @@ export default function MenuPage() {
                 className="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-5 h-5" />
-                Enviar Comanda
+                Enviar Pedido
               </button>
             </div>
           </div>
