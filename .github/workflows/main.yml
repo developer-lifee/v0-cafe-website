@@ -32,20 +32,6 @@ jobs:
         # 3. Solo necesitamos 'pnpm run build' ya que 'output: export' está en next.config.mjs
         run: pnpm run build 
         
-      - name: 🧹 Clean up conflicting files on FTP server
-        run: |
-          cat > /tmp/ftp_cleanup.sh << 'EOF'
-          #!/bin/bash
-          lftp -u estavi7,${{ secrets.FTP_PASSWORD }} ftps4.us.freehostia.com << 'LFTP'
-          cd scratchup.com.co/
-          rm -f menu.html
-          rm -f menu.txt
-          bye
-          LFTP
-          EOF
-          chmod +x /tmp/ftp_cleanup.sh
-          /tmp/ftp_cleanup.sh || true
-        
       - name: 📂 Sync build folder via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
