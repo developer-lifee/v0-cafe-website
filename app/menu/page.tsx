@@ -1,10 +1,63 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { X, ChevronDown, Trash2, MessageCircle, ArrowLeft } from 'lucide-react'
+import { X, ChevronDown, Trash2, MessageCircle, ArrowLeft, Droplets } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '../context/CartContext'
+
+// Componente para generar SVG de bebida basado en el nombre
+const BeverageImage = ({ name, category }) => {
+  const getColorByCategory = (cat) => {
+    const colors = {
+      'Aromáticas': '#8B4513',
+      'Cafés Especiales': '#6F4E37',
+      'Bebidas Frías': '#1E90FF',
+      'Jugos Naturales': '#FF6347',
+      'Combos': '#FFD700',
+      'Espresso': '#3D2817',
+      'Tinto Origen': '#4A2C1A'
+    }
+    return colors[cat] || '#A0826D'
+  }
+
+  const color = getColorByCategory(category)
+
+  return (
+    <svg width="100%" height="200" viewBox="0 0 200 200" className="bg-gradient-to-br from-secondary to-secondary/50">
+      {/* Fondo decorativo */}
+      <defs>
+        <linearGradient id={`grad-${name}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style={{ stopColor: color, stopOpacity: 0.1 }} />
+          <stop offset="100%" style={{ stopColor: color, stopOpacity: 0.3 }} />
+        </linearGradient>
+      </defs>
+
+      <rect width="200" height="200" fill={`url(#grad-${name})`} />
+
+      {/* Granos de café decorativos */}
+      <circle cx="30" cy="30" r="4" fill={color} opacity="0.6" />
+      <circle cx="170" cy="40" r="5" fill={color} opacity="0.5" />
+      <circle cx="160" cy="170" r="4" fill={color} opacity="0.6" />
+      <circle cx="40" cy="180" r="5" fill={color} opacity="0.5" />
+
+      {/* Vaso/taza */}
+      <rect x="60" y="60" width="80" height="100" rx="5" fill="none" stroke={color} strokeWidth="2" />
+      <path d="M 140 80 Q 155 85 155 110 Q 155 125 140 130" fill="none" stroke={color} strokeWidth="2" />
+
+      {/* Líquido dentro */}
+      <rect x="62" y="80" width="76" height="76" rx="3" fill={color} opacity="0.3" />
+
+      {/* Espuma */}
+      <circle cx="85" cy="72" r="4" fill={color} opacity="0.6" />
+      <circle cx="100" cy="68" r="5" fill={color} opacity="0.5" />
+      <circle cx="115" cy="72" r="4" fill={color} opacity="0.6" />
+
+      {/* Icono de gota */}
+      <path d="M 100 150 Q 95 160 100 168 Q 105 160 100 150" fill={color} opacity="0.7" />
+    </svg>
+  )
+}
 
 export default function MenuPage() {
   const { cart, addToCart, removeFromCart } = useCart()
@@ -182,36 +235,44 @@ export default function MenuPage() {
                 {cat.items.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-background border border-border rounded-lg overflow-hidden hover:border-primary transition hover:shadow-lg"
+                    className="bg-background border border-border rounded-lg overflow-hidden hover:border-primary transition hover:shadow-xl hover:scale-105 transform duration-300"
                   >
+                    {/* Imagen del producto */}
+                    <div className="h-48 bg-gradient-to-br from-secondary to-secondary/50 overflow-hidden">
+                      <BeverageImage name={item.name} category={cat.title} />
+                    </div>
+
                     {/* Item Header */}
                     <div
-                      className="p-6 cursor-pointer hover:bg-secondary/50 transition"
+                      className="p-5 cursor-pointer hover:bg-secondary/50 transition border-b border-border"
                       onClick={() => setExpandedItem(expandedItem === item.id ? null : item.id)}
                     >
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <h3 className="text-xl font-bold mb-2">{item.name}</h3>
+                      <div className="flex items-start justify-between gap-3 mb-3">
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold mb-1">{item.name}</h3>
                           {item.description && (
-                            <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
+                            <p className="text-xs text-muted-foreground line-clamp-2">{item.description}</p>
                           )}
                         </div>
                         {item.optionGroups && item.optionGroups.length > 0 && (
                           <ChevronDown
-                            className={`w-5 h-5 text-primary transition-transform flex-shrink-0 ${
+                            className={`w-5 h-5 text-primary transition-transform flex-shrink-0 mt-1 ${
                               expandedItem === item.id ? 'rotate-180' : ''
                             }`}
                           />
                         )}
                       </div>
-                      <p className="text-2xl font-bold text-primary">
-                        ${calculateItemPrice(item).toLocaleString('es-CO')}
-                      </p>
+                      <div className="flex items-center justify-between">
+                        <p className="text-xl font-bold text-primary">
+                          ${calculateItemPrice(item).toLocaleString('es-CO')}
+                        </p>
+                        <Droplets className="w-4 h-4 text-primary/60" />
+                      </div>
                     </div>
 
                     {/* Options Section */}
                     {expandedItem === item.id && item.optionGroups && item.optionGroups.length > 0 && (
-                      <div className="border-t border-border p-6 bg-secondary/30">
+                      <div className="border-t border-border p-5 bg-secondary/30">
                         {item.optionGroups.map((group) => (
                           <div key={group.id} className="mb-6 last:mb-0">
                             <label className="text-sm font-semibold mb-3 block">
