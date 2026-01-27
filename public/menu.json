@@ -160,9 +160,9 @@
               "multiselect": false,
               "options": [
                 { "id": "sin-leche", "name": "Sin Leche", "price": 0 },
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                { "id": "leche-entera", "name": "Leche Entera", "price": 1000 },
+                { "id": "leche-descremada", "name": "Leche Descremada", "price": 1000 },
+                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 1000 }
               ]
             }
           ]
