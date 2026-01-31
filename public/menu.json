@@ -17,7 +17,6 @@
           "name": "Espresso",
           "price": 2500,
           "description": "Café intenso y concentrado, extracción perfecta",
-          "imageUrl": "https://images.rappi.com/products/5fe97078-55c1-40ab-afd0-72d252d6a437.png",
           "optionGroups": []
         },
         {
@@ -33,6 +32,7 @@
           "name": "Americano",
           "price": 3000,
           "description": "Doble espresso diluido en agua caliente",
+          "imageUrl": "https://images.rappi.com/products/5fe97078-55c1-40ab-afd0-72d252d6a437.png",
           "optionGroups": []
         },
         {
