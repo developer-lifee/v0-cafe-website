@@ -347,9 +347,10 @@
         },
         {
           "id": "migao",
-          "name": "Migajón",
+          "name": "Migao",
           "price": 5000,
           "description": "Bebida de avena con opciones de proteína",
+          "imageUrl": "https://images.rappi.com/products/49fd5897-068b-4082-a161-c687eac5ca23.png",
           "optionGroups": [
             {
               "id": "tipo-leche",
