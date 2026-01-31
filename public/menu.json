@@ -17,6 +17,15 @@
           "name": "Espresso",
           "price": 2500,
           "description": "Café intenso y concentrado, extracción perfecta",
+          "imageUrl": "https://images.rappi.com/products/5fe97078-55c1-40ab-afd0-72d252d6a437.png",
+          "optionGroups": []
+        },
+        {
+          "id": "cortado",
+          "name": "Cortado",
+          "price": 3500,
+          "description": "Espresso cortado con una pequeña cantidad de leche caliente",
+          "imageUrl": "https://images.rappi.com/products/db08f274-17e1-48ce-b24f-a21313d517c3.png",
           "optionGroups": []
         },
         {
@@ -31,6 +40,7 @@
           "name": "Latte",
           "price": 4500,
           "description": "Espresso con leche",
+          "imageUrl": "https://images.rappi.com/products/0be7a1b2-b32a-4310-acd5-79c255d6e083.png",
           "optionGroups": [
             {
               "id": "tipo-leche",
@@ -38,9 +48,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             },
             {
@@ -49,9 +71,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "vainilla", "name": "Vainilla", "price": 1000 },
-                { "id": "caramelo", "name": "Caramelo", "price": 1000 },
-                { "id": "chantilly", "name": "Chantilly", "price": 1000 }
+                {
+                  "id": "vainilla",
+                  "name": "Vainilla",
+                  "price": 1000
+                },
+                {
+                  "id": "caramelo",
+                  "name": "Caramelo",
+                  "price": 1000
+                },
+                {
+                  "id": "chantilly",
+                  "name": "Chantilly",
+                  "price": 1000
+                }
               ]
             }
           ]
@@ -69,9 +103,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             },
             {
@@ -80,9 +126,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "vainilla", "name": "Vainilla", "price": 1000 },
-                { "id": "caramelo", "name": "Caramelo", "price": 1000 },
-                { "id": "chantilly", "name": "Chantilly", "price": 1000 }
+                {
+                  "id": "vainilla",
+                  "name": "Vainilla",
+                  "price": 1000
+                },
+                {
+                  "id": "caramelo",
+                  "name": "Caramelo",
+                  "price": 1000
+                },
+                {
+                  "id": "chantilly",
+                  "name": "Chantilly",
+                  "price": 1000
+                }
               ]
             }
           ]
@@ -92,6 +150,7 @@
           "name": "Mocca",
           "price": 4000,
           "description": "Espresso con leche y chocolate",
+          "imageUrl": "https://images.rappi.com/products/f04c80be-d70d-47ba-8cad-caee98eb86f8.png",
           "optionGroups": [
             {
               "id": "tipo-leche",
@@ -99,9 +158,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             },
             {
@@ -110,9 +181,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "vainilla", "name": "Vainilla", "price": 1000 },
-                { "id": "caramelo", "name": "Caramelo", "price": 1000 },
-                { "id": "chantilly", "name": "Chantilly", "price": 1000 }
+                {
+                  "id": "vainilla",
+                  "name": "Vainilla",
+                  "price": 1000
+                },
+                {
+                  "id": "caramelo",
+                  "name": "Caramelo",
+                  "price": 1000
+                },
+                {
+                  "id": "chantilly",
+                  "name": "Chantilly",
+                  "price": 1000
+                }
               ]
             }
           ]
@@ -129,9 +212,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             },
             {
@@ -140,9 +235,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "vainilla", "name": "Vainilla", "price": 1000 },
-                { "id": "caramelo", "name": "Caramelo", "price": 1000 },
-                { "id": "chantilly", "name": "Chantilly", "price": 1000 }
+                {
+                  "id": "vainilla",
+                  "name": "Vainilla",
+                  "price": 1000
+                },
+                {
+                  "id": "caramelo",
+                  "name": "Caramelo",
+                  "price": 1000
+                },
+                {
+                  "id": "chantilly",
+                  "name": "Chantilly",
+                  "price": 1000
+                }
               ]
             }
           ]
@@ -159,10 +266,26 @@
               "required": false,
               "multiselect": false,
               "options": [
-                { "id": "sin-leche", "name": "Sin Leche", "price": 0 },
-                { "id": "leche-entera", "name": "Leche Entera", "price": 1000 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 1000 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 1000 }
+                {
+                  "id": "sin-leche",
+                  "name": "Sin Leche",
+                  "price": 0
+                },
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 1000
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 1000
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 1000
+                }
               ]
             }
           ]
@@ -179,9 +302,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             },
             {
@@ -190,9 +325,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "vainilla", "name": "Vainilla", "price": 1000 },
-                { "id": "caramelo", "name": "Caramelo", "price": 1000 },
-                { "id": "chantilly", "name": "Chantilly", "price": 1000 }
+                {
+                  "id": "vainilla",
+                  "name": "Vainilla",
+                  "price": 1000
+                },
+                {
+                  "id": "caramelo",
+                  "name": "Caramelo",
+                  "price": 1000
+                },
+                {
+                  "id": "chantilly",
+                  "name": "Chantilly",
+                  "price": 1000
+                }
               ]
             }
           ]
@@ -209,9 +356,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             }
           ]
@@ -227,6 +386,7 @@
           "name": "Granizado",
           "price": 6000,
           "description": "Bebida congelada y refrescante",
+          "imageUrl": "https://images.rappi.com/products/a6cba285-4724-4dd8-8304-caa9f0a06603.png",
           "optionGroups": []
         },
         {
@@ -241,9 +401,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             }
           ]
@@ -260,10 +432,26 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "fresa", "name": "Fresa", "price": 0 },
-                { "id": "limon", "name": "Limón", "price": 0 },
-                { "id": "guanabana", "name": "Guanabana", "price": 0 },
-                { "id": "mora", "name": "Mora", "price": 0 }
+                {
+                  "id": "fresa",
+                  "name": "Fresa",
+                  "price": 0
+                },
+                {
+                  "id": "limon",
+                  "name": "Limón",
+                  "price": 0
+                },
+                {
+                  "id": "guanabana",
+                  "name": "Guanabana",
+                  "price": 0
+                },
+                {
+                  "id": "mora",
+                  "name": "Mora",
+                  "price": 0
+                }
               ]
             }
           ]
@@ -280,10 +468,26 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "mora", "name": "Mora", "price": 0 },
-                { "id": "fresa", "name": "Fresa", "price": 0 },
-                { "id": "banano", "name": "Banano", "price": 0 },
-                { "id": "guanabana", "name": "Guanabana", "price": 0 }
+                {
+                  "id": "mora",
+                  "name": "Mora",
+                  "price": 0
+                },
+                {
+                  "id": "fresa",
+                  "name": "Fresa",
+                  "price": 0
+                },
+                {
+                  "id": "banano",
+                  "name": "Banano",
+                  "price": 0
+                },
+                {
+                  "id": "guanabana",
+                  "name": "Guanabana",
+                  "price": 0
+                }
               ]
             }
           ]
@@ -307,9 +511,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             }
           ]
@@ -332,9 +548,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "banano", "name": "Banano", "price": 0 },
-                { "id": "fresa", "name": "Fresa", "price": 0 },
-                { "id": "mora", "name": "Mora", "price": 0 }
+                {
+                  "id": "banano",
+                  "name": "Banano",
+                  "price": 0
+                },
+                {
+                  "id": "fresa",
+                  "name": "Fresa",
+                  "price": 0
+                },
+                {
+                  "id": "mora",
+                  "name": "Mora",
+                  "price": 0
+                }
               ]
             }
           ]
@@ -351,9 +579,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             },
             {
@@ -362,9 +602,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "banano", "name": "Banano", "price": 0 },
-                { "id": "fresa", "name": "Fresa", "price": 0 },
-                { "id": "mora", "name": "Mora", "price": 0 }
+                {
+                  "id": "banano",
+                  "name": "Banano",
+                  "price": 0
+                },
+                {
+                  "id": "fresa",
+                  "name": "Fresa",
+                  "price": 0
+                },
+                {
+                  "id": "mora",
+                  "name": "Mora",
+                  "price": 0
+                }
               ]
             },
             {
@@ -373,8 +625,16 @@
               "required": false,
               "multiselect": false,
               "options": [
-                { "id": "con-avena", "name": "Con Avena", "price": 0 },
-                { "id": "sin-avena", "name": "Sin Avena", "price": 0 }
+                {
+                  "id": "con-avena",
+                  "name": "Con Avena",
+                  "price": 0
+                },
+                {
+                  "id": "sin-avena",
+                  "name": "Sin Avena",
+                  "price": 0
+                }
               ]
             },
             {
@@ -383,9 +643,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "proteina", "name": "Proteína en Polvo", "price": 2000 },
-                { "id": "creatina", "name": "Creatina", "price": 2000 },
-                { "id": "colageno", "name": "Colágeno", "price": 2000 }
+                {
+                  "id": "proteina",
+                  "name": "Proteína en Polvo",
+                  "price": 2000
+                },
+                {
+                  "id": "creatina",
+                  "name": "Creatina",
+                  "price": 2000
+                },
+                {
+                  "id": "colageno",
+                  "name": "Colágeno",
+                  "price": 2000
+                }
               ]
             },
             {
@@ -394,8 +666,16 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "tarrito-rojo", "name": "Tarrito Rojo", "price": 1000 },
-                { "id": "complemento-basico", "name": "Complemento Básico", "price": 1000 }
+                {
+                  "id": "tarrito-rojo",
+                  "name": "Tarrito Rojo",
+                  "price": 1000
+                },
+                {
+                  "id": "complemento-basico",
+                  "name": "Complemento Básico",
+                  "price": 1000
+                }
               ]
             }
           ]
@@ -492,9 +772,21 @@
               "required": true,
               "multiselect": false,
               "options": [
-                { "id": "leche-entera", "name": "Leche Entera", "price": 0 },
-                { "id": "leche-descremada", "name": "Leche Descremada", "price": 0 },
-                { "id": "leche-deslactosada", "name": "Leche Deslactosada", "price": 0 }
+                {
+                  "id": "leche-entera",
+                  "name": "Leche Entera",
+                  "price": 0
+                },
+                {
+                  "id": "leche-descremada",
+                  "name": "Leche Descremada",
+                  "price": 0
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Leche Deslactosada",
+                  "price": 0
+                }
               ]
             },
             {
@@ -503,9 +795,21 @@
               "required": false,
               "multiselect": true,
               "options": [
-                { "id": "vainilla", "name": "Vainilla", "price": 1000 },
-                { "id": "caramelo", "name": "Caramelo", "price": 1000 },
-                { "id": "chantilly", "name": "Chantilly", "price": 1000 }
+                {
+                  "id": "vainilla",
+                  "name": "Vainilla",
+                  "price": 1000
+                },
+                {
+                  "id": "caramelo",
+                  "name": "Caramelo",
+                  "price": 1000
+                },
+                {
+                  "id": "chantilly",
+                  "name": "Chantilly",
+                  "price": 1000
+                }
               ]
             }
           ]
@@ -528,4 +832,3 @@
     }
   ]
 }
-
