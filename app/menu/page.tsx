@@ -11,12 +11,12 @@ const BeverageImage = ({ imageUrl, name }: any) => {
   const [loading, setLoading] = useState(true)
 
   return (
-    <div className="w-full h-48 bg-secondary/30 overflow-hidden relative group">
+    <div className="w-full h-48 bg-secondary/30 overflow-hidden relative group p-2">
       {imageUrl ? (
         <img
           src={imageUrl}
           alt={name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
           onLoad={() => setLoading(false)}
           onError={(e: any) => {
             e.currentTarget.src = `https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`
@@ -44,7 +44,7 @@ export default function MenuPage() {
   const handleOptionSelect = (itemId, groupId, optionId, multiselect = false) => {
     setSelectedItems(prev => {
       const current = prev[itemId]?.[groupId] || (multiselect ? [] : null)
-      
+
       if (multiselect) {
         const updatedArray = Array.isArray(current) ? [...current] : []
         const index = updatedArray.indexOf(optionId)
@@ -75,11 +75,11 @@ export default function MenuPage() {
   const calculateItemPrice = (item) => {
     let total = item.price || 0
     const itemSelections = selectedItems[item.id] || {}
-    
+
     if (item.optionGroups) {
       item.optionGroups.forEach(group => {
         const selectedValues = itemSelections[group.id]
-        
+
         if (group.multiselect && Array.isArray(selectedValues)) {
           selectedValues.forEach(optionId => {
             const selectedOption = group.options.find(o => o.id === optionId)
@@ -104,13 +104,13 @@ export default function MenuPage() {
 
   const formatCartItemForWhatsApp = (item, selections) => {
     let message = `• ${item.name}`
-    
+
     if (item.optionGroups && Object.keys(selections).length > 0) {
       item.optionGroups.forEach(group => {
         const selected = selections[group.id]
         if (selected) {
           if (group.multiselect && Array.isArray(selected)) {
-            const optionNames = selected.map(optId => 
+            const optionNames = selected.map(optId =>
               group.options.find(o => o.id === optId)?.name
             ).filter(Boolean)
             if (optionNames.length > 0) {
@@ -131,13 +131,13 @@ export default function MenuPage() {
   const sendToWhatsApp = (orderItems) => {
     const phoneNumber = '573107946794'
     let message = 'Mi pedido:\n\n'
-    
+
     orderItems.forEach(item => {
       message += formatCartItemForWhatsApp(item.item, item.selections) + `\n${item.price.toLocaleString('es-CO')} COP\n\n`
     })
-    
+
     message += `Total: ${orderItems.reduce((sum, item) => sum + item.price, 0).toLocaleString('es-CO')} COP`
-    
+
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }
@@ -145,14 +145,14 @@ export default function MenuPage() {
   const handleAddToCart = (item) => {
     const itemSelections = selectedItems[item.id] || {}
     const itemPrice = calculateItemPrice(item)
-    
+
     addToCart({
       item,
       selections: itemSelections,
       price: itemPrice,
       id: `${item.id}-${Date.now()}`
     })
-    
+
     setSelectedItems(prev => {
       const updated = { ...prev }
       delete updated[item.id]
@@ -197,7 +197,7 @@ export default function MenuPage() {
       <section className="bg-secondary py-12">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-12 text-center">Nuestro Menú Completo</h2>
-          
+
           {!menuData && (
             <p className="text-center text-muted-foreground">Cargando menú...</p>
           )}
@@ -230,9 +230,8 @@ export default function MenuPage() {
                         </div>
                         {item.optionGroups && item.optionGroups.length > 0 && (
                           <ChevronDown
-                            className={`w-5 h-5 text-primary transition-transform flex-shrink-0 mt-1 ${
-                              expandedItem === item.id ? 'rotate-180' : ''
-                            }`}
+                            className={`w-5 h-5 text-primary transition-transform flex-shrink-0 mt-1 ${expandedItem === item.id ? 'rotate-180' : ''
+                              }`}
                           />
                         )}
                       </div>
@@ -258,7 +257,7 @@ export default function MenuPage() {
                                 const isSelected = group.multiselect
                                   ? Array.isArray(selectedItems[item.id]?.[group.id]) && selectedItems[item.id][group.id].includes(option.id)
                                   : selectedItems[item.id]?.[group.id] === option.id
-                                
+
                                 return (
                                   <label
                                     key={option.id}
@@ -294,7 +293,7 @@ export default function MenuPage() {
                             </div>
                           </div>
                         ))}
-                        <button 
+                        <button
                           onClick={() => handleAddToCart(item)}
                           className="w-full mt-4 bg-primary text-primary-foreground py-2 rounded-lg font-semibold hover:opacity-90 transition">
                           Agregar al carrito
@@ -315,7 +314,7 @@ export default function MenuPage() {
           <div className="bg-background rounded-lg shadow-lg w-full max-w-md p-6 animate-in slide-in-from-bottom-4">
             <h3 className="text-xl font-bold mb-2">Producto agregado</h3>
             <p className="text-muted-foreground mb-6">¿Qué deseas hacer?</p>
-            
+
             <div className="flex gap-3">
               <button
                 onClick={() => {
@@ -362,17 +361,17 @@ export default function MenuPage() {
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex-1">
                       <h4 className="font-semibold">{cartItem.item.name}</h4>
-                      
+
                       {Object.keys(cartItem.selections).length > 0 && (
                         <div className="mt-2 space-y-1">
                           {cartItem.item.optionGroups.map(group => {
                             const selected = cartItem.selections[group.id]
                             if (!selected) return null
-                            
+
                             return (
                               <div key={group.id} className="text-xs text-muted-foreground">
                                 {group.multiselect && Array.isArray(selected) ? (
-                                  <p>{group.name}: {selected.map(optId => 
+                                  <p>{group.name}: {selected.map(optId =>
                                     group.options.find(o => o.id === optId)?.name
                                   ).filter(Boolean).join(', ')}</p>
                                 ) : !group.multiselect ? (

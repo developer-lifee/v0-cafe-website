@@ -205,6 +205,7 @@
           "name": "Flat White",
           "price": 5000,
           "description": "Espresso con leche microespumada",
+          "imageUrl": "https://images.rappi.com/products/f15b976b-a6c6-4f88-b214-595e28ad3306.png",
           "optionGroups": [
             {
               "id": "tipo-leche",
@@ -541,6 +542,7 @@
           "name": "Parfait",
           "price": 6000,
           "description": "Yogur con granola y frutas",
+          "imageUrl": "https://images.rappi.com/products/35b77aac-8346-459e-aea6-7ec21b8577e3.jpeg",
           "optionGroups": [
             {
               "id": "frutas-adicionales",
@@ -714,10 +716,19 @@
       "title": "PANADERÍA",
       "items": [
         {
-          "id": "empanadas",
-          "name": "Empanadas",
+          "id": "empanada-carne",
+          "name": "Empanada de Carne",
           "price": 3800,
-          "description": "Empanadas horneadas al momento",
+          "description": "Empanada de carne horneada al momento",
+          "imageUrl": "https://images.rappi.com/products/3555734a-bb1e-49ef-a6d0-fbc23fc0d2ff.png",
+          "optionGroups": []
+        },
+        {
+          "id": "empanada-pollo",
+          "name": "Empanada de Pollo",
+          "price": 3800,
+          "description": "Empanada de pollo horneada al momento",
+          "imageUrl": "https://images.rappi.com/products/56ec0099-eba9-4d96-a312-086c36280176.png",
           "optionGroups": []
         },
         {
@@ -738,6 +749,7 @@
           "name": "Canelazo",
           "price": 3000,
           "description": "Bebida tradicional con canela",
+          "imageUrl": "https://images.rappi.com/products/94af4683-86b3-485a-8454-2eb29a498361.png",
           "optionGroups": []
         },
         {
