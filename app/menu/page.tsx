@@ -41,6 +41,22 @@ export default function MenuPage() {
   const [showAddModal, setShowAddModal] = useState(false)
   const [showCart, setShowCart] = useState(false)
 
+  const scrollToCategory = (categoryId: string) => {
+    const element = document.getElementById(categoryId)
+    if (element) {
+      const offset = 140 // Adjust for header + sticky nav height
+      const bodyRect = document.body.getBoundingClientRect().top
+      const elementRect = element.getBoundingClientRect().top
+      const elementPosition = elementRect - bodyRect
+      const offsetPosition = elementPosition - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   const handleOptionSelect = (itemId, groupId, optionId, multiselect = false) => {
     setSelectedItems(prev => {
       const current = prev[itemId]?.[groupId] || (multiselect ? [] : null)
@@ -193,6 +209,23 @@ export default function MenuPage() {
         </nav>
       </header>
 
+      {/* Category Navigation */}
+      <div className="sticky top-[64px] z-30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 overflow-x-auto">
+          <div className="flex items-center gap-4 py-3 whitespace-nowrap min-w-full">
+            {menuData?.categories?.map((cat: any) => (
+              <button
+                key={cat.id}
+                onClick={() => scrollToCategory(cat.id)}
+                className="px-4 py-1.5 rounded-full text-sm font-medium transition-colors hover:bg-secondary hover:text-primary border border-transparent hover:border-border"
+              >
+                {cat.title}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Menu Section */}
       <section className="bg-secondary py-12">
         <div className="max-w-7xl mx-auto px-4">
@@ -203,7 +236,7 @@ export default function MenuPage() {
           )}
 
           {menuData?.categories?.map((cat) => (
-            <div key={cat.id} className="mb-12">
+            <div key={cat.id} id={cat.id} className="scroll-mt-32 mb-12">
               <h3 className="text-2xl font-bold mb-8 text-primary">{cat.title}</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {cat.items.map((item) => (

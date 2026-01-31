@@ -9,7 +9,7 @@
           "name": "Tinto Origen",
           "price": 1500,
           "description": "Las 4 onzas de café más recargado que probarás. Cold brew de Moniquirá, calentado a la perfección",
-          "imageUrl": "https://partners.rappi.com/af317533-53e7-497e-a329-45d3a19af389",
+          "imageUrl": "https://images.rappi.com/products/8a2e8949-7e09-485c-bce2-2b17b429648d.png",
           "optionGroups": []
         },
         {
@@ -17,6 +17,7 @@
           "name": "Espresso",
           "price": 2500,
           "description": "Café intenso y concentrado, extracción perfecta",
+          "imageUrl": "https://images.rappi.com/products/ed96d64e-96fe-40c6-85ca-1e56bbc74785.png",
           "optionGroups": []
         },
         {
