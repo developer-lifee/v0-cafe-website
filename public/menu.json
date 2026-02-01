@@ -96,7 +96,7 @@
           "name": "Cappuccino",
           "price": 3200,
           "description": "Espresso con leche vaporizada y espuma",
-          "imageUrl": "https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=300&fit=crop",
+          "imageUrl": "https://partners.rappi.com/4bf972b4-b942-4d82-8762-f96770e93287",
           "optionGroups": [
             {
               "id": "tipo-leche",
