@@ -428,6 +428,7 @@
           "name": "Sodas",
           "price": 4000,
           "description": "Refrescante soda con sabor",
+          "imageUrl": "https://images.rappi.com/products/85616cd3-9472-4d5a-b18e-95a261e34afb.png",
           "optionGroups": [
             {
               "id": "sabor-soda",
@@ -576,6 +577,7 @@
           "name": "Batido Proteico",
           "price": 3000,
           "description": "Vaso de avena con opciones de proteína y complementos",
+          "imageUrl": "https://images.rappi.com/products/c83da970-5104-43d0-884b-1dff40b08f54.png",
           "optionGroups": [
             {
               "id": "tipo-leche",
@@ -766,6 +768,7 @@
           "name": "Guanabana Ron",
           "price": 5000,
           "description": "Bebida tropical con ron",
+          "imageUrl": "https://images.rappi.com/products/1bee675e-9f45-49ec-9f8e-c3487f1c2d91.png",
           "optionGroups": []
         }
       ]
