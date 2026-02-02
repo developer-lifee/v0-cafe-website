@@ -467,6 +467,7 @@
           "name": "Jugos Naturales",
           "price": 3000,
           "description": "Jugo fresco del día",
+          "imageUrl": "https://images.rappi.com/products/9ad5cffe-088c-4632-b9e5-0e2ee1ea02a5.png",
           "optionGroups": [
             {
               "id": "tipo-jugo",
@@ -493,6 +494,47 @@
                   "id": "guanabana",
                   "name": "Guanabana",
                   "price": 0
+                }
+              ]
+            },
+            {
+              "id": "dulce",
+              "name": "Dulce",
+              "required": false,
+              "multiselect": false,
+              "options": [
+                {
+                  "id": "poco-dulce",
+                  "name": "Poco Dulce",
+                  "price": 0
+                },
+                {
+                  "id": "extra-dulce",
+                  "name": "Extra dulce",
+                  "price": 0
+                }
+              ]
+            },
+            {
+              "id": "base-leche",
+              "name": "Base De Leche",
+              "required": false,
+              "multiselect": false,
+              "options": [
+                {
+                  "id": "leche-descremada",
+                  "name": "Descremada",
+                  "price": 2000
+                },
+                {
+                  "id": "leche-entera",
+                  "name": "Entera",
+                  "price": 2000
+                },
+                {
+                  "id": "leche-deslactosada",
+                  "name": "Deslactosada",
+                  "price": 2000
                 }
               ]
             }
