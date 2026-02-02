@@ -297,6 +297,7 @@
           "name": "Chocolate",
           "price": 3000,
           "description": "Chocolate caliente",
+          "imageUrl": "https://images.rappi.com/products/c643c76e-3ba7-4997-956d-def549394fe5.png",
           "optionGroups": [
             {
               "id": "tipo-leche",
