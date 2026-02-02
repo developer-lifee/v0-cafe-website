@@ -398,6 +398,7 @@
           "name": "Latte Helado",
           "price": 5000,
           "description": "Espresso con leche fría",
+          "imageUrl": "https://images.rappi.com/products/0c37bdf2-a7b4-4303-89a8-174a0ed96945.png",
           "optionGroups": [
             {
               "id": "tipo-leche",
