@@ -495,7 +495,7 @@
                   "price": 0
                 }
               ]
-            }
+            }s
           ]
         },
         {
@@ -506,348 +506,315 @@
           "optionGroups": []
         },
         {
-          "id": "avena",
-          "name": "Avena",
-          "price": 3000,
-          "description": "Bebida de avena refrescante",
-          "optionGroups": [
+          "id": "gym",
+          "title": "GYM / BATIDOS PROTEICOS",
+          "items": [
             {
-              "id": "tipo-leche",
-              "name": "Tipo de Leche",
-              "required": true,
-              "multiselect": false,
-              "options": [
+              "id": "parfait",
+              "name": "Parfait",
+              "price": 6000,
+              "description": "Yogur con granola y frutas",
+              "imageUrl": "https://images.rappi.com/products/35b77aac-8346-459e-aea6-7ec21b8577e3.jpeg",
+              "optionGroups": [
                 {
-                  "id": "leche-entera",
-                  "name": "Leche Entera",
-                  "price": 0
-                },
-                {
-                  "id": "leche-descremada",
-                  "name": "Leche Descremada",
-                  "price": 0
-                },
-                {
-                  "id": "leche-deslactosada",
-                  "name": "Leche Deslactosada",
-                  "price": 0
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "gym",
-      "title": "GYM / BATIDOS PROTEICOS",
-      "items": [
-        {
-          "id": "parfait",
-          "name": "Parfait",
-          "price": 6000,
-          "description": "Yogur con granola y frutas",
-          "imageUrl": "https://images.rappi.com/products/35b77aac-8346-459e-aea6-7ec21b8577e3.jpeg",
-          "optionGroups": [
-            {
-              "id": "frutas-adicionales",
-              "name": "Frutas Adicionales",
-              "required": false,
-              "multiselect": true,
-              "options": [
-                {
-                  "id": "banano",
-                  "name": "Banano",
-                  "price": 0
-                },
-                {
-                  "id": "fresa",
-                  "name": "Fresa",
-                  "price": 0
-                },
-                {
-                  "id": "mora",
-                  "name": "Mora",
-                  "price": 0
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "batido-proteina",
-          "name": "Batido Proteico",
-          "price": 3000,
-          "description": "Vaso de avena con opciones de proteína y complementos",
-          "imageUrl": "https://images.rappi.com/products/c83da970-5104-43d0-884b-1dff40b08f54.png",
-          "optionGroups": [
-            {
-              "id": "tipo-leche",
-              "name": "Tipo de Leche",
-              "required": true,
-              "multiselect": false,
-              "options": [
-                {
-                  "id": "leche-entera",
-                  "name": "Leche Entera",
-                  "price": 0
-                },
-                {
-                  "id": "leche-descremada",
-                  "name": "Leche Descremada",
-                  "price": 0
-                },
-                {
-                  "id": "leche-deslactosada",
-                  "name": "Leche Deslactosada",
-                  "price": 0
+                  "id": "frutas-adicionales",
+                  "name": "Frutas Adicionales",
+                  "required": false,
+                  "multiselect": true,
+                  "options": [
+                    {
+                      "id": "banano",
+                      "name": "Banano",
+                      "price": 0
+                    },
+                    {
+                      "id": "fresa",
+                      "name": "Fresa",
+                      "price": 0
+                    },
+                    {
+                      "id": "mora",
+                      "name": "Mora",
+                      "price": 0
+                    }
+                  ]
                 }
               ]
             },
             {
-              "id": "fruta-batido",
-              "name": "Fruta",
-              "required": false,
-              "multiselect": true,
-              "options": [
+              "id": "batido-proteina",
+              "name": "Batido Proteico",
+              "price": 3000,
+              "description": "Vaso de avena con opciones de proteína y complementos",
+              "imageUrl": "https://images.rappi.com/products/c83da970-5104-43d0-884b-1dff40b08f54.png",
+              "optionGroups": [
                 {
-                  "id": "banano",
-                  "name": "Banano",
-                  "price": 0
+                  "id": "tipo-leche",
+                  "name": "Tipo de Leche",
+                  "required": true,
+                  "multiselect": false,
+                  "options": [
+                    {
+                      "id": "leche-entera",
+                      "name": "Leche Entera",
+                      "price": 0
+                    },
+                    {
+                      "id": "leche-descremada",
+                      "name": "Leche Descremada",
+                      "price": 0
+                    },
+                    {
+                      "id": "leche-deslactosada",
+                      "name": "Leche Deslactosada",
+                      "price": 0
+                    }
+                  ]
                 },
                 {
-                  "id": "fresa",
-                  "name": "Fresa",
-                  "price": 0
+                  "id": "fruta-batido",
+                  "name": "Fruta",
+                  "required": false,
+                  "multiselect": true,
+                  "options": [
+                    {
+                      "id": "banano",
+                      "name": "Banano",
+                      "price": 0
+                    },
+                    {
+                      "id": "fresa",
+                      "name": "Fresa",
+                      "price": 0
+                    },
+                    {
+                      "id": "mora",
+                      "name": "Mora",
+                      "price": 0
+                    }
+                  ]
                 },
                 {
-                  "id": "mora",
-                  "name": "Mora",
-                  "price": 0
-                }
-              ]
-            },
-            {
-              "id": "incluir-avena",
-              "name": "¿Incluir Avena?",
-              "required": false,
-              "multiselect": false,
-              "options": [
-                {
-                  "id": "con-avena",
-                  "name": "Con Avena",
-                  "price": 0
+                  "id": "incluir-avena",
+                  "name": "¿Incluir Avena?",
+                  "required": false,
+                  "multiselect": false,
+                  "options": [
+                    {
+                      "id": "con-avena",
+                      "name": "Con Avena",
+                      "price": 0
+                    },
+                    {
+                      "id": "sin-avena",
+                      "name": "Sin Avena",
+                      "price": 0
+                    }
+                  ]
                 },
                 {
-                  "id": "sin-avena",
-                  "name": "Sin Avena",
-                  "price": 0
-                }
-              ]
-            },
-            {
-              "id": "proteina-premium",
-              "name": "Proteína Premium (+$2.000)",
-              "required": false,
-              "multiselect": true,
-              "options": [
-                {
-                  "id": "proteina",
-                  "name": "Proteína en Polvo",
-                  "price": 2000
+                  "id": "proteina-premium",
+                  "name": "Proteína Premium (+$2.000)",
+                  "required": false,
+                  "multiselect": true,
+                  "options": [
+                    {
+                      "id": "proteina",
+                      "name": "Proteína en Polvo",
+                      "price": 2000
+                    },
+                    {
+                      "id": "creatina",
+                      "name": "Creatina",
+                      "price": 2000
+                    },
+                    {
+                      "id": "colageno",
+                      "name": "Colágeno",
+                      "price": 2000
+                    }
+                  ]
                 },
                 {
-                  "id": "creatina",
-                  "name": "Creatina",
-                  "price": 2000
-                },
-                {
-                  "id": "colageno",
-                  "name": "Colágeno",
-                  "price": 2000
-                }
-              ]
-            },
-            {
-              "id": "proteina-basica",
-              "name": "Complementos (+$1.000)",
-              "required": false,
-              "multiselect": true,
-              "options": [
-                {
-                  "id": "tarrito-rojo",
-                  "name": "Tarrito Rojo",
-                  "price": 1000
-                },
-                {
-                  "id": "complemento-basico",
-                  "name": "Complemento Básico",
-                  "price": 1000
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "postres",
-      "title": "POSTRES",
-      "items": [
-        {
-          "id": "cheesecake-limon",
-          "name": "Cheesecake de Limón",
-          "price": 4000,
-          "description": "Delicioso cheesecake con sabor a limón",
-          "optionGroups": []
-        },
-        {
-          "id": "galletas-chocochip",
-          "name": "Galletas Chocochip",
-          "price": 2000,
-          "description": "Galletas caseras con chispas de chocolate",
-          "optionGroups": []
-        },
-        {
-          "id": "torta-banano",
-          "name": "Torta de Banano",
-          "price": 2000,
-          "description": "Torta casera de banano",
-          "optionGroups": []
-        }
-      ]
-    },
-    {
-      "id": "panaderia",
-      "title": "PANADERÍA",
-      "items": [
-        {
-          "id": "empanada-carne",
-          "name": "Empanada de Carne",
-          "price": 3800,
-          "description": "Empanada de carne horneada al momento",
-          "imageUrl": "https://images.rappi.com/products/3555734a-bb1e-49ef-a6d0-fbc23fc0d2ff.png",
-          "optionGroups": []
-        },
-        {
-          "id": "empanada-pollo",
-          "name": "Empanada de Pollo",
-          "price": 3800,
-          "description": "Empanada de pollo horneada al momento",
-          "imageUrl": "https://images.rappi.com/products/56ec0099-eba9-4d96-a312-086c36280176.png",
-          "optionGroups": []
-        },
-        {
-          "id": "focaccia",
-          "name": "Focaccia",
-          "price": 5000,
-          "description": "Pan italiano recién horneado",
-          "optionGroups": []
-        }
-      ]
-    },
-    {
-      "id": "bebidas-con-licor",
-      "title": "BEBIDAS CON LICOR",
-      "items": [
-        {
-          "id": "canelazo",
-          "name": "Canelazo",
-          "price": 3000,
-          "description": "Bebida tradicional con canela",
-          "imageUrl": "https://images.rappi.com/products/94af4683-86b3-485a-8454-2eb29a498361.png",
-          "optionGroups": []
-        },
-        {
-          "id": "carajillo",
-          "name": "Carajillo",
-          "price": 4000,
-          "description": "Espresso con licor",
-          "optionGroups": []
-        },
-        {
-          "id": "guanaba-ron",
-          "name": "Guanabana Ron",
-          "price": 5000,
-          "description": "Bebida tropical con ron",
-          "imageUrl": "https://images.rappi.com/products/1bee675e-9f45-49ec-9f8e-c3487f1c2d91.png",
-          "optionGroups": []
-        }
-      ]
-    },
-    {
-      "id": "combos",
-      "title": "COMBOS",
-      "items": [
-        {
-          "id": "combo-latte-cheesecake",
-          "name": "1 Latte + 1 Cheesecake",
-          "price": 7000,
-          "description": "Combo perfecto: Espresso con leche + Cheesecake",
-          "optionGroups": [
-            {
-              "id": "tipo-leche-combo",
-              "name": "Tipo de Leche para el Latte",
-              "required": true,
-              "multiselect": false,
-              "options": [
-                {
-                  "id": "leche-entera",
-                  "name": "Leche Entera",
-                  "price": 0
-                },
-                {
-                  "id": "leche-descremada",
-                  "name": "Leche Descremada",
-                  "price": 0
-                },
-                {
-                  "id": "leche-deslactosada",
-                  "name": "Leche Deslactosada",
-                  "price": 0
-                }
-              ]
-            },
-            {
-              "id": "adiciones-combo",
-              "name": "Adiciones",
-              "required": false,
-              "multiselect": true,
-              "options": [
-                {
-                  "id": "vainilla",
-                  "name": "Vainilla",
-                  "price": 1000
-                },
-                {
-                  "id": "caramelo",
-                  "name": "Caramelo",
-                  "price": 1000
-                },
-                {
-                  "id": "chantilly",
-                  "name": "Chantilly",
-                  "price": 1000
+                  "id": "proteina-basica",
+                  "name": "Complementos (+$1.000)",
+                  "required": false,
+                  "multiselect": true,
+                  "options": [
+                    {
+                      "id": "tarrito-rojo",
+                      "name": "Tarrito Rojo",
+                      "price": 1000
+                    },
+                    {
+                      "id": "complemento-basico",
+                      "name": "Complemento Básico",
+                      "price": 1000
+                    }
+                  ]
                 }
               ]
             }
           ]
         },
         {
-          "id": "combo-empanadas",
-          "name": "2 Empanadas",
-          "price": 7000,
-          "description": "Dos empanadas recién horneadas",
-          "optionGroups": []
+          "id": "postres",
+          "title": "POSTRES",
+          "items": [
+            {
+              "id": "cheesecake-limon",
+              "name": "Cheesecake de Limón",
+              "price": 4000,
+              "description": "Delicioso cheesecake con sabor a limón",
+              "optionGroups": []
+            },
+            {
+              "id": "galletas-chocochip",
+              "name": "Galletas Chocochip",
+              "price": 2000,
+              "description": "Galletas caseras con chispas de chocolate",
+              "optionGroups": []
+            },
+            {
+              "id": "torta-banano",
+              "name": "Torta de Banano",
+              "price": 2000,
+              "description": "Torta casera de banano",
+              "optionGroups": []
+            }
+          ]
         },
         {
-          "id": "combo-carajillos",
-          "name": "2 Carajillos",
-          "price": 7000,
-          "description": "Dos carajillos para compartir",
-          "optionGroups": []
+          "id": "panaderia",
+          "title": "PANADERÍA",
+          "items": [
+            {
+              "id": "empanada-carne",
+              "name": "Empanada de Carne",
+              "price": 3800,
+              "description": "Empanada de carne horneada al momento",
+              "imageUrl": "https://images.rappi.com/products/3555734a-bb1e-49ef-a6d0-fbc23fc0d2ff.png",
+              "optionGroups": []
+            },
+            {
+              "id": "empanada-pollo",
+              "name": "Empanada de Pollo",
+              "price": 3800,
+              "description": "Empanada de pollo horneada al momento",
+              "imageUrl": "https://images.rappi.com/products/56ec0099-eba9-4d96-a312-086c36280176.png",
+              "optionGroups": []
+            },
+            {
+              "id": "focaccia",
+              "name": "Focaccia",
+              "price": 5000,
+              "description": "Pan italiano recién horneado",
+              "optionGroups": []
+            }
+          ]
+        },
+        {
+          "id": "bebidas-con-licor",
+          "title": "BEBIDAS CON LICOR",
+          "items": [
+            {
+              "id": "canelazo",
+              "name": "Canelazo",
+              "price": 3000,
+              "description": "Bebida tradicional con canela",
+              "imageUrl": "https://images.rappi.com/products/94af4683-86b3-485a-8454-2eb29a498361.png",
+              "optionGroups": []
+            },
+            {
+              "id": "carajillo",
+              "name": "Carajillo",
+              "price": 4000,
+              "description": "Espresso con licor",
+              "optionGroups": []
+            },
+            {
+              "id": "guanaba-ron",
+              "name": "Guanabana Ron",
+              "price": 5000,
+              "description": "Bebida tropical con ron",
+              "imageUrl": "https://images.rappi.com/products/1bee675e-9f45-49ec-9f8e-c3487f1c2d91.png",
+              "optionGroups": []
+            }
+          ]
+        },
+        {
+          "id": "combos",
+          "title": "COMBOS",
+          "items": [
+            {
+              "id": "combo-latte-cheesecake",
+              "name": "1 Latte + 1 Cheesecake",
+              "price": 7000,
+              "description": "Combo perfecto: Espresso con leche + Cheesecake",
+              "optionGroups": [
+                {
+                  "id": "tipo-leche-combo",
+                  "name": "Tipo de Leche para el Latte",
+                  "required": true,
+                  "multiselect": false,
+                  "options": [
+                    {
+                      "id": "leche-entera",
+                      "name": "Leche Entera",
+                      "price": 0
+                    },
+                    {
+                      "id": "leche-descremada",
+                      "name": "Leche Descremada",
+                      "price": 0
+                    },
+                    {
+                      "id": "leche-deslactosada",
+                      "name": "Leche Deslactosada",
+                      "price": 0
+                    }
+                  ]
+                },
+                {
+                  "id": "adiciones-combo",
+                  "name": "Adiciones",
+                  "required": false,
+                  "multiselect": true,
+                  "options": [
+                    {
+                      "id": "vainilla",
+                      "name": "Vainilla",
+                      "price": 1000
+                    },
+                    {
+                      "id": "caramelo",
+                      "name": "Caramelo",
+                      "price": 1000
+                    },
+                    {
+                      "id": "chantilly",
+                      "name": "Chantilly",
+                      "price": 1000
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "combo-empanadas",
+              "name": "2 Empanadas",
+              "price": 7000,
+              "description": "Dos empanadas recién horneadas",
+              "optionGroups": []
+            },
+            {
+              "id": "combo-carajillos",
+              "name": "2 Carajillos",
+              "price": 7000,
+              "description": "Dos carajillos para compartir",
+              "optionGroups": []
+            }
+          ]
         }
       ]
     }
-  ]
-}
