@@ -37,6 +37,7 @@ const BeverageImage = ({ imageUrl, name }: any) => {
 export default function MenuPage() {
   const { cart, addToCart, removeFromCart } = useCart()
   const [menuData, setMenuData] = useState(null)
+  const [error, setError] = useState<string | null>(null)
   const [selectedItems, setSelectedItems] = useState({})
   const [expandedItem, setExpandedItem] = useState(null)
   const [showAddModal, setShowAddModal] = useState(false)
@@ -181,9 +182,17 @@ export default function MenuPage() {
 
   useEffect(() => {
     fetch('/menu.json')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('No se pudo cargar el menú')
+        }
+        return res.json()
+      })
       .then((data) => setMenuData(data))
-      .catch((err) => console.error('Error cargando menú:', err))
+      .catch((err) => {
+        console.error('Error cargando menú:', err)
+        setError('Lo sentimos, hubo un error cargando el menú.')
+      })
   }, [])
 
   return (
@@ -232,8 +241,20 @@ export default function MenuPage() {
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold mb-12 text-center">Nuestro Menú Completo</h2>
 
-          {!menuData && (
+          {!menuData && !error && (
             <p className="text-center text-muted-foreground">Cargando menú...</p>
+          )}
+
+          {error && (
+            <div className="text-center my-8">
+              <p className="text-red-500 mb-4">{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition"
+              >
+                Recargar página
+              </button>
+            </div>
           )}
 
           {menuData?.categories?.map((cat) => (
