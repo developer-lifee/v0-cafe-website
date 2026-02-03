@@ -17,6 +17,7 @@ const BeverageImage = ({ imageUrl, name }: any) => {
           src={imageUrl}
           alt={name}
           className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+          referrerPolicy="no-referrer"
           onLoad={() => setLoading(false)}
           onError={(e: any) => {
             e.currentTarget.src = `https://via.placeholder.com/300x200?text=${encodeURIComponent(name)}`
