@@ -28,6 +28,9 @@ jobs:
         # Usa el flag temporal si el pnpm-lock.yaml no está sincronizado
         run: pnpm install --no-frozen-lockfile 
 
+      - name: 🧪 Run tests
+        run: pnpm test 
+
       - name: 🏗️ Build project (Genera 'out/' automáticamente)
         # 3. Solo necesitamos 'pnpm run build' ya que 'output: export' está en next.config.mjs
         run: pnpm run build 
