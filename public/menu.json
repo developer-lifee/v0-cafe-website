@@ -7,8 +7,8 @@
         {
           "id": "tinto",
           "name": "Tinto Origen",
-          "price": 1500,
-          "description": "Las 4 onzas de café más recargado que probarás. Cold brew de Moniquirá, calentado a la perfección",
+          "price": 2000,
+          "description": "Lungo de 4 onzas",
           "imageUrl": "https://images.rappi.com/products/8a2e8949-7e09-485c-bce2-2b17b429648d.png",
           "optionGroups": []
         },
@@ -18,7 +18,26 @@
           "price": 2500,
           "description": "Café intenso y concentrado, extracción perfecta",
           "imageUrl": "https://images.rappi.com/products/ed96d64e-96fe-40c6-85ca-1e56bbc74785.png",
-          "optionGroups": []
+          "optionGroups": [
+            {
+              "id": "tamano-espresso",
+              "name": "Tamaño",
+              "required": true,
+              "multiselect": false,
+              "options": [
+                {
+                  "id": "sencillo",
+                  "name": "Sencillo",
+                  "price": 0
+                },
+                {
+                  "id": "doble",
+                  "name": "Doble",
+                  "price": 1000
+                }
+              ]
+            }
+          ]
         },
         {
           "id": "cortado",
@@ -31,7 +50,7 @@
         {
           "id": "americano",
           "name": "Americano",
-          "price": 3000,
+          "price": 4000,
           "description": "Doble espresso diluido en agua caliente",
           "imageUrl": "https://images.rappi.com/products/5fe97078-55c1-40ab-afd0-72d252d6a437.png",
           "optionGroups": []
@@ -350,7 +369,7 @@
         {
           "id": "migao",
           "name": "Migao",
-          "price": 5000,
+          "price": 7000,
           "description": "Bebida de avena con opciones de proteína",
           "imageUrl": "https://images.rappi.com/products/49fd5897-068b-4082-a161-c687eac5ca23.png",
           "optionGroups": [
@@ -428,7 +447,7 @@
         {
           "id": "sodas",
           "name": "Sodas",
-          "price": 4000,
+          "price": 6000,
           "description": "Refrescante soda con sabor",
           "imageUrl": "https://images.rappi.com/products/85616cd3-9472-4d5a-b18e-95a261e34afb.png",
           "optionGroups": [
@@ -457,6 +476,83 @@
                   "id": "mora",
                   "name": "Mora",
                   "price": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "gaseosas-exoticas",
+          "name": "Gaseosas Exóticas",
+          "price": 3000,
+          "description": "Gaseosas con sabores exóticos y refrescantes",
+          "optionGroups": [
+            {
+              "id": "sabor-gaseosa-exotica",
+              "name": "Sabor",
+              "required": true,
+              "multiselect": false,
+              "options": [
+                {
+                  "id": "guanabana-exotica",
+                  "name": "Guanábana",
+                  "price": 0
+                },
+                {
+                  "id": "maracumango",
+                  "name": "Maracumango",
+                  "price": 0
+                },
+                {
+                  "id": "lulo",
+                  "name": "Lulo",
+                  "price": 0
+                },
+                {
+                  "id": "mango-biche",
+                  "name": "Mango Biche",
+                  "price": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cold-brew",
+          "name": "Cold Brew",
+          "price": 5000,
+          "description": "Café macerado en frío por horas",
+          "optionGroups": [
+            {
+              "id": "sabor-cold-brew",
+              "name": "Sabor",
+              "required": true,
+              "multiselect": false,
+              "options": [
+                {
+                  "id": "natural",
+                  "name": "Natural",
+                  "price": 0
+                },
+                {
+                  "id": "guanabana-cb",
+                  "name": "Guanábana",
+                  "price": 1000
+                },
+                {
+                  "id": "maracumango-cb",
+                  "name": "Maracumango",
+                  "price": 1000
+                },
+                {
+                  "id": "lulo-cb",
+                  "name": "Lulo",
+                  "price": 1000
+                },
+                {
+                  "id": "mango-biche-cb",
+                  "name": "Mango Biche",
+                  "price": 1000
                 }
               ]
             }
