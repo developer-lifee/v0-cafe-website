@@ -120,8 +120,8 @@ export default function MenuPage() {
     return cart.reduce((sum, item) => sum + item.price, 0)
   }
 
-  const formatCartItemForWhatsApp = (item, selections) => {
-    let message = `• ${item.name}`
+  const formatCartItemForWhatsApp = (item, selections, quantity = 1) => {
+    let message = `• ${quantity}x ${item.name}`
 
     if (item.optionGroups && Object.keys(selections).length > 0) {
       item.optionGroups.forEach(group => {
@@ -150,11 +150,29 @@ export default function MenuPage() {
     const phoneNumber = '573107946794'
     let message = 'Mi pedido:\n\n'
 
-    orderItems.forEach(item => {
-      message += formatCartItemForWhatsApp(item.item, item.selections) + `\n${item.price.toLocaleString('es-CO')} COP\n\n`
+    const groupedItems = []
+    orderItems.forEach(cartItem => {
+      const existing = groupedItems.find(g =>
+        g.item.id === cartItem.item.id &&
+        JSON.stringify(g.selections) === JSON.stringify(cartItem.selections)
+      )
+      if (existing) {
+        existing.quantity += 1
+        existing.price += cartItem.price
+      } else {
+        groupedItems.push({
+          ...cartItem,
+          quantity: 1
+        })
+      }
     })
 
-    message += `Total: ${orderItems.reduce((sum, item) => sum + item.price, 0).toLocaleString('es-CO')} COP`
+    groupedItems.forEach(group => {
+      message += formatCartItemForWhatsApp(group.item, group.selections, group.quantity) + `\n$${group.price.toLocaleString('es-CO')} COP\n\n`
+    })
+
+    const total = orderItems.reduce((sum, item) => sum + item.price, 0)
+    message += `Total: $${total.toLocaleString('es-CO')} COP`
 
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
@@ -409,45 +427,67 @@ export default function MenuPage() {
 
             {/* Items */}
             <div className="flex-1 p-6 space-y-4">
-              {cart.map((cartItem) => (
-                <div key={cartItem.id} className="border border-border rounded-lg p-4">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div className="flex-1">
-                      <h4 className="font-semibold">{cartItem.item.name}</h4>
+              {(() => {
+                const groupedCart = [];
+                cart.forEach((cartItem) => {
+                  const existing = groupedCart.find(g =>
+                    g.item.id === cartItem.item.id &&
+                    JSON.stringify(g.selections) === JSON.stringify(cartItem.selections)
+                  );
+                  if (existing) {
+                    existing.quantity += 1;
+                    existing.price += cartItem.price;
+                    existing.cartItemIds.push(cartItem.id);
+                  } else {
+                    groupedCart.push({
+                      ...cartItem,
+                      quantity: 1,
+                      cartItemIds: [cartItem.id]
+                    });
+                  }
+                });
 
-                      {Object.keys(cartItem.selections).length > 0 && (
-                        <div className="mt-2 space-y-1">
-                          {cartItem.item.optionGroups.map(group => {
-                            const selected = cartItem.selections[group.id]
-                            if (!selected) return null
+                return groupedCart.map((group) => (
+                  <div key={group.cartItemIds[0]} className="border border-border rounded-lg p-4">
+                    <div className="flex items-start justify-between gap-3 mb-2">
+                      <div className="flex-1">
+                        <h4 className="font-semibold">{group.quantity > 1 ? `${group.quantity}x ` : ''}{group.item.name}</h4>
 
-                            return (
-                              <div key={group.id} className="text-xs text-muted-foreground">
-                                {group.multiselect && Array.isArray(selected) ? (
-                                  <p>{group.name}: {selected.map(optId =>
-                                    group.options.find(o => o.id === optId)?.name
-                                  ).filter(Boolean).join(', ')}</p>
-                                ) : !group.multiselect ? (
-                                  <p>{group.name}: {group.options.find(o => o.id === selected)?.name}</p>
-                                ) : null}
-                              </div>
-                            )
-                          })}
-                        </div>
-                      )}
+                        {Object.keys(group.selections).length > 0 && (
+                          <div className="mt-2 space-y-1">
+                            {group.item.optionGroups.map(optGroup => {
+                              const selected = group.selections[optGroup.id]
+                              if (!selected) return null
+
+                              return (
+                                <div key={optGroup.id} className="text-xs text-muted-foreground">
+                                  {optGroup.multiselect && Array.isArray(selected) ? (
+                                    <p>{optGroup.name}: {selected.map(optId =>
+                                      optGroup.options.find(o => o.id === optId)?.name
+                                    ).filter(Boolean).join(', ')}</p>
+                                  ) : !optGroup.multiselect ? (
+                                    <p>{optGroup.name}: {optGroup.options.find(o => o.id === selected)?.name}</p>
+                                  ) : null}
+                                </div>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => removeFromCart(group.cartItemIds[group.cartItemIds.length - 1])}
+                        className="p-2 hover:bg-secondary rounded transition flex-shrink-0"
+                        title={group.quantity > 1 ? "Eliminar uno" : "Eliminar"}
+                      >
+                        <Trash2 className="w-5 h-5 text-red-500" />
+                      </button>
                     </div>
-                    <button
-                      onClick={() => removeFromCart(cartItem.id)}
-                      className="p-2 hover:bg-secondary rounded transition flex-shrink-0"
-                    >
-                      <Trash2 className="w-5 h-5 text-red-500" />
-                    </button>
+                    <p className="text-lg font-bold text-primary">
+                      ${group.price.toLocaleString('es-CO')}
+                    </p>
                   </div>
-                  <p className="text-lg font-bold text-primary">
-                    ${cartItem.price.toLocaleString('es-CO')}
-                  </p>
-                </div>
-              ))}
+                ));
+              })()}
             </div>
 
             {/* Footer */}

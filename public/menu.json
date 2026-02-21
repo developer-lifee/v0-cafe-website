@@ -278,34 +278,37 @@
         {
           "id": "aromatica",
           "name": "Aromática",
-          "price": 1500,
-          "description": "Infusión caliente",
+          "price": 5000,
+          "description": "Verdadera infusión de frutas",
           "optionGroups": [
             {
-              "id": "tipo-leche",
-              "name": "Tipo de Leche",
-              "required": false,
+              "id": "sabor-infusion",
+              "name": "Sabor",
+              "required": true,
               "multiselect": false,
               "options": [
                 {
-                  "id": "sin-leche",
-                  "name": "Sin Leche",
+                  "id": "frutos-rojos",
+                  "name": "Frutos Rojos",
                   "price": 0
                 },
                 {
-                  "id": "leche-entera",
-                  "name": "Leche Entera",
-                  "price": 1000
-                },
+                  "id": "frutos-amarillos",
+                  "name": "Frutos Amarillos",
+                  "price": 0
+                }
+              ]
+            },
+            {
+              "id": "adicion-licor",
+              "name": "Adiciones Mágicas",
+              "required": false,
+              "multiselect": true,
+              "options": [
                 {
-                  "id": "leche-descremada",
-                  "name": "Leche Descremada",
-                  "price": 1000
-                },
-                {
-                  "id": "leche-deslactosada",
-                  "name": "Leche Deslactosada",
-                  "price": 1000
+                  "id": "adicion-ron",
+                  "name": "Adición de Ron",
+                  "price": 3000
                 }
               ]
             }
