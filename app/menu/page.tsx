@@ -283,12 +283,10 @@ export default function MenuPage() {
                             <p className="text-xs text-muted-foreground line-clamp-2">{item.description}</p>
                           )}
                         </div>
-                        {item.optionGroups && item.optionGroups.length > 0 && (
-                          <ChevronDown
-                            className={`w-5 h-5 text-primary transition-transform flex-shrink-0 mt-1 ${expandedItem === item.id ? 'rotate-180' : ''
-                              }`}
-                          />
-                        )}
+                        <ChevronDown
+                          className={`w-5 h-5 text-primary transition-transform flex-shrink-0 mt-1 ${expandedItem === item.id ? 'rotate-180' : ''
+                            }`}
+                        />
                       </div>
                       <div className="flex items-center justify-between">
                         <p className="text-xl font-bold text-primary">
@@ -299,9 +297,9 @@ export default function MenuPage() {
                     </div>
 
                     {/* Options Section */}
-                    {expandedItem === item.id && item.optionGroups && item.optionGroups.length > 0 && (
+                    {expandedItem === item.id && (
                       <div className="border-t border-border p-5 bg-secondary/30">
-                        {item.optionGroups.map((group) => (
+                        {item.optionGroups?.map((group) => (
                           <div key={group.id} className="mb-6 last:mb-0">
                             <label className="text-sm font-semibold mb-3 block">
                               {group.name}
