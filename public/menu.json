@@ -723,17 +723,17 @@
                 {
                   "id": "banano",
                   "name": "Banano",
-                  "price": 0
+                  "price": 1000
                 },
                 {
                   "id": "fresa",
                   "name": "Fresa",
-                  "price": 0
+                  "price": 1000
                 },
                 {
                   "id": "mora",
                   "name": "Mora",
-                  "price": 0
+                  "price": 1000
                 }
               ]
             },
@@ -787,11 +787,6 @@
                 {
                   "id": "tarrito-rojo",
                   "name": "Tarrito Rojo",
-                  "price": 1000
-                },
-                {
-                  "id": "complemento-basico",
-                  "name": "Complemento Básico",
                   "price": 1000
                 }
               ]
