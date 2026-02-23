@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 export default function CaféPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  
+
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [selectedHours, setSelectedHours] = useState([])
   const pricePerHour = 15000
@@ -34,7 +34,7 @@ export default function CaféPage() {
   const calculateTotal = () => {
     return selectedHours.length * pricePerHour
   }
-  
+
   const calculateLoyaltyAverage = () => {
     if (loyaltyPurchases === 0) return 0
     return Math.round(loyaltyTotal / loyaltyPurchases)
@@ -64,13 +64,12 @@ export default function CaféPage() {
         <button
           key={day}
           disabled={isPast}
-          className={`h-10 rounded flex items-center justify-center text-sm font-medium transition ${
-            isToday
+          className={`h-10 rounded flex items-center justify-center text-sm font-medium transition ${isToday
               ? 'bg-primary text-primary-foreground'
               : isPast
-              ? 'text-muted-foreground cursor-not-allowed opacity-50'
-              : 'border border-border hover:border-primary'
-          }`}
+                ? 'text-muted-foreground cursor-not-allowed opacity-50'
+                : 'border border-border hover:border-primary'
+            }`}
         >
           {day}
         </button>
@@ -86,7 +85,7 @@ export default function CaféPage() {
       <header className="border-b border-border sticky top-0 z-50 bg-background">
         <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Image 
+            <Image
               src="/images/logo.png"
               alt="SCRATCH UP Logo"
               width={32}
@@ -147,28 +146,58 @@ export default function CaféPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-secondary via-background to-background" />
-        <div className="relative max-w-7xl mx-auto px-4 py-32 md:py-48 text-center">
-          <div className="mb-8 flex justify-center">
-            <Image 
-              src="/images/logo.png"
-              alt="SCRATCH UP"
-              width={100}
-              height={130}
-              className="w-24 h-32 md:w-28 md:h-40"
-            />
+      <section className="relative overflow-hidden bg-background">
+        <div className="max-w-7xl mx-auto px-4 py-16 md:py-24">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Text Content */}
+            <div className="order-2 md:order-1 text-center md:text-left">
+              <div className="mb-6 flex justify-center md:justify-start">
+                <Image
+                  src="/images/logo.png"
+                  alt="SCRATCH UP"
+                  width={80}
+                  height={104}
+                  className="w-20 h-26"
+                />
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                <span className="text-primary">SCRATCH UP</span><br />
+                Café Especializado
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8">
+                Un espacio donde emprendedores y creativos pueden trabajar, conectar y disfrutar del mejor café artesanal. Ubicado en Engativá, Bogotá.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a
+                  href="https://maps.google.com/?q=SCRATCH+UP+Engativá+Bogotá"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition transform hover:scale-105"
+                >
+                  <MapPin className="w-5 h-5" />
+                  Cómo Llegar
+                </a>
+                <Link
+                  href="/menu"
+                  className="inline-flex items-center justify-center bg-secondary text-foreground px-8 py-4 rounded-lg font-semibold hover:bg-secondary/80 border border-border transition"
+                >
+                  Ver Menú
+                </Link>
+              </div>
+            </div>
+
+            {/* Image Content */}
+            <div className="order-1 md:order-2 w-full aspect-[4/3] md:aspect-square lg:aspect-[4/3] relative rounded-2xl overflow-hidden shadow-2xl border border-border">
+              <Image
+                src="/images/fachada-final.jpeg"
+                alt="Fachada de SCRATCH UP"
+                fill
+                className="object-cover hover:scale-105 transition duration-700"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+            </div>
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-primary">SCRATCH UP</span><br />
-            Café Especializado
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Un espacio donde emprendedores y creativos pueden trabajar, conectar y disfrutar del mejor café artesanal. Ubicado en Engativá, Bogotá.
-          </p>
-          <Link href="/menu" className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition transform hover:scale-105">
-            Ver Menú Completo
-          </Link>
         </div>
       </section>
 
@@ -230,13 +259,13 @@ export default function CaféPage() {
               <Heart className="w-6 h-6 text-primary" />
               Tu Progreso
             </h3>
-            
+
             <div className="bg-background p-6 rounded-lg mb-6">
               <div className="mb-4">
                 <p className="text-sm text-muted-foreground mb-2">Compras realizadas</p>
                 <p className="text-5xl font-bold text-primary">{loyaltyPurchases}/9</p>
               </div>
-              
+
               {loyaltyPurchases > 0 && (
                 <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-lg">
                   <p className="text-sm text-muted-foreground mb-1">Total gastado</p>
@@ -297,7 +326,7 @@ export default function CaféPage() {
                 <Gift className="w-6 h-6" />
                 Cómo Funciona
               </h3>
-              
+
               <div className="space-y-6">
                 <div className="flex gap-4">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-foreground text-primary flex items-center justify-center font-bold">
@@ -363,7 +392,7 @@ export default function CaféPage() {
           {/* Calendar and Hour Selection */}
           <div className="lg:col-span-2 bg-secondary border border-border rounded-lg p-8">
             <h3 className="text-2xl font-bold mb-6">Reserva tus Horas</h3>
-            
+
             {/* Calendar Header */}
             <div className="flex items-center justify-between mb-6">
               <button
@@ -405,11 +434,10 @@ export default function CaféPage() {
                   <button
                     key={hour}
                     onClick={() => toggleHour(hour)}
-                    className={`py-2 px-2 rounded text-sm font-medium transition ${
-                      selectedHours.includes(hour)
+                    className={`py-2 px-2 rounded text-sm font-medium transition ${selectedHours.includes(hour)
                         ? 'bg-primary text-primary-foreground'
                         : 'border border-border hover:border-primary'
-                    }`}
+                      }`}
                   >
                     {hour}:00
                   </button>
