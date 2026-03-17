@@ -503,23 +503,13 @@
               "multiselect": false,
               "options": [
                 {
-                  "id": "fresa",
-                  "name": "Fresa",
+                  "id": "frutos-rojos",
+                  "name": "Frutos Rojos",
                   "price": 0
                 },
                 {
-                  "id": "limon",
-                  "name": "Limón",
-                  "price": 0
-                },
-                {
-                  "id": "guanabana",
-                  "name": "Guanabana",
-                  "price": 0
-                },
-                {
-                  "id": "mora",
-                  "name": "Mora",
+                  "id": "frutos-amarillos",
+                  "name": "Frutos Amarillos",
                   "price": 0
                 }
               ]
