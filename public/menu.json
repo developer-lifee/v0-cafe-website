@@ -413,7 +413,49 @@
           "price": 6000,
           "description": "Bebida congelada y refrescante",
           "imageUrl": "https://images.rappi.com/products/a6cba285-4724-4dd8-8304-caa9f0a06603.png",
-          "optionGroups": []
+          "optionGroups": [
+            {
+              "id": "sabor-granizado",
+              "name": "Sabor",
+              "required": true,
+              "multiselect": false,
+              "options": [
+                {
+                  "id": "cafe",
+                  "name": "Café",
+                  "price": 0
+                },
+                {
+                  "id": "fresa",
+                  "name": "Fresa",
+                  "price": 0
+                },
+                {
+                  "id": "mora",
+                  "name": "Mora",
+                  "price": 0
+                },
+                {
+                  "id": "guanabana",
+                  "name": "Guanábana",
+                  "price": 0
+                }
+              ]
+            },
+            {
+              "id": "adiciones-granizado",
+              "name": "Adiciones",
+              "required": false,
+              "multiselect": true,
+              "options": [
+                {
+                  "id": "chantilly",
+                  "name": "Chantilly",
+                  "price": 1000
+                }
+              ]
+            }
+          ]
         },
         {
           "id": "latte-helado",
