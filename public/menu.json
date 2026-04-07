@@ -685,6 +685,15 @@
       "title": "GYM / BATIDOS PROTEICOS",
       "items": [
         {
+          "id": "desayuno-fitness",
+          "name": "Desayuno Fitness",
+          "price": 15000,
+          "description": "Panqueques con fresas y banano, más porción de granola y yogurt griego.",
+          "modelUrl": "/models/pancakes.glb",
+          "imageUrl": "https://images.rappi.com/products/35b77aac-8346-459e-aea6-7ec21b8577e3.jpeg",
+          "optionGroups": []
+        },
+        {
           "id": "parfait",
           "name": "Parfait",
           "price": 6000,

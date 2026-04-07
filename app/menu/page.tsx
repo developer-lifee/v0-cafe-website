@@ -5,18 +5,21 @@ import { X, ChevronDown, Trash2, MessageCircle, ArrowLeft, Droplets } from 'luci
 import Link from 'next/link'
 import Image from 'next/image'
 import { useCart } from '../context/CartContext'
+import ModelViewer from '@/components/ModelViewer'
 
 // Componente para mostrar imagen de bebida desde JSON
-const BeverageImage = ({ imageUrl, name }: any) => {
+const BeverageImage = ({ imageUrl, modelUrl, name }: any) => {
   const [loading, setLoading] = useState(true)
 
   return (
-    <div className="w-full h-48 bg-secondary/30 overflow-hidden relative group p-2">
-      {imageUrl ? (
+    <div className="w-full h-48 bg-secondary/30 overflow-hidden relative group">
+      {modelUrl ? (
+        <ModelViewer modelUrl={modelUrl} />
+      ) : imageUrl ? (
         <img
           src={imageUrl}
           alt={name}
-          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 p-2"
           referrerPolicy="no-referrer"
           onLoad={() => setLoading(false)}
           onError={(e: any) => {
@@ -29,7 +32,7 @@ const BeverageImage = ({ imageUrl, name }: any) => {
           <Droplets className="w-8 h-8 text-muted-foreground" />
         </div>
       )}
-      <div className="absolute inset-0 bg-black/10"></div>
+      {!modelUrl && <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>}
     </div>
   )
 }
@@ -286,7 +289,7 @@ export default function MenuPage() {
                   >
                     {/* Imagen del producto */}
                     <div className="h-48 bg-gradient-to-br from-secondary to-secondary/50 overflow-hidden">
-                      <BeverageImage imageUrl={item.imageUrl} name={item.name} />
+                      <BeverageImage imageUrl={item.imageUrl} modelUrl={item.modelUrl} name={item.name} />
                     </div>
 
                     {/* Item Header */}
