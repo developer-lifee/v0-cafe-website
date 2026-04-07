@@ -64,9 +64,9 @@ export default function ModelViewer({ modelUrl }: { modelUrl: string }) {
           <p className="text-xs text-muted-foreground">No se pudo cargar el modelo 3D.<br/>Usando vista previa.</p>
         </div>
       }>
-        <Canvas shadows camera={{ position: [0, 0, 4], fov: 45 }}>
+        <Canvas shadows camera={{ position: [0, 4, 4], fov: 40 }}>
           <Suspense fallback={<Loader />}>
-            <Stage intensity={0.5} environment="city" adjustCamera={1.5} shadows={{ type: 'contact', opacity: 0.7 }}>
+            <Stage intensity={0.5} environment="city" adjustCamera={0.9} shadows={{ type: 'contact', opacity: 0.7 }}>
               <Center>
                 <Model url={modelUrl} />
               </Center>
@@ -75,7 +75,9 @@ export default function ModelViewer({ modelUrl }: { modelUrl: string }) {
           <OrbitControls 
             enablePan={false} 
             minDistance={2} 
-            maxDistance={10} 
+            maxDistance={5} 
+            minPolarAngle={0}
+            maxPolarAngle={Math.PI / 2}
             autoRotate 
             autoRotateSpeed={0.5}
           />
