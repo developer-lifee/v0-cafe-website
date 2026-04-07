@@ -691,7 +691,26 @@
           "description": "Panqueques con fresas y banano, más porción de granola y yogurt griego.",
           "modelUrl": "/models/pancakes.glb",
           "imageUrl": "https://images.rappi.com/products/35b77aac-8346-459e-aea6-7ec21b8577e3.jpeg",
-          "optionGroups": []
+          "optionGroups": [
+            {
+              "id": "bebida-desayuno",
+              "name": "Selecciona tu bebida",
+              "required": true,
+              "multiselect": false,
+              "options": [
+                { "id": "tinto", "name": "Tinto Origen", "price": 0 },
+                { "id": "americano", "name": "Americano", "price": 0 },
+                { "id": "latte", "name": "Latte", "price": 0 },
+                { "id": "cappuccino", "name": "Cappuccino", "price": 0 },
+                { "id": "chocolate", "name": "Chocolate", "price": 0 },
+                { "id": "jugo-natural", "name": "Jugo Natural", "price": 0 },
+                { "id": "limonada", "name": "Limonada Natural", "price": 0 },
+                { "id": "granizado", "name": "Granizado", "price": 0 },
+                { "id": "soda", "name": "Soda", "price": 0 },
+                { "id": "batido-proteico", "name": "Batido Proteico", "price": 3000 }
+              ]
+            }
+          ]
         },
         {
           "id": "parfait",
