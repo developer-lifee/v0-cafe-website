@@ -36,7 +36,7 @@ const CARDS: Card[] = [
     tag: "Lo que amo",
     icon: Sparkles,
     title: "Cada uno de tus tatuajes",
-    text: "Amo cada historia dibujada en tu piel. Cada línea me cuenta un pedacito más de ti.",
+    text: "Siempre te apoyaré en tus tatuajes y seré la primera persona en decirte lo preciosos que te quedan. Yo sí soy súper fan de ellos.",
     emoji: "🌹",
   },
   {
@@ -44,7 +44,7 @@ const CARDS: Card[] = [
     tag: "Lo que me encanta",
     icon: Utensils,
     title: "Tus huevos con chile",
-    text: "Verte cocinar en videollamada siempre me da hambre. Muero por probar tus huevos con chile y desayunar juntos.",
+    text: "Verte cocinar en videollamada siempre me da hambre. Muero por desayunar juntos, probar tu comida y algo más... 😏",
     emoji: "🍳🌶️",
   },
   {
@@ -137,6 +137,7 @@ export function SwipeDeck() {
   const [taunt, setTaunt] = useState<string | null>(null)
   const [noButtonOffset, setNoButtonOffset] = useState({ x: 0, y: 0 })
   const [noButtonText, setNoButtonText] = useState("No")
+  const [yesButtonScale, setYesButtonScale] = useState(1)
   const startRef = useRef<{ x: number; y: number } | null>(null)
 
   const isLast = index === CARDS.length - 1
@@ -213,6 +214,7 @@ export function SwipeDeck() {
   useEffect(() => {
     setNoButtonOffset({ x: 0, y: 0 })
     setNoButtonText(isLast ? "No" : "X")
+    setYesButtonScale(1)
   }, [index, isLast])
 
   const handleNoHover = () => {
@@ -224,6 +226,9 @@ export function SwipeDeck() {
     // Change text to random troll text
     const nextText = TROLL_TEXTS[Math.floor(Math.random() * TROLL_TEXTS.length)]
     setNoButtonText(nextText)
+
+    // Make the Yes/Heart button grow
+    setYesButtonScale((prev) => prev + 0.18)
   }
 
   if (accepted) {
@@ -245,7 +250,7 @@ export function SwipeDeck() {
             ¡Finalmente Novios! 💖
           </h2>
           <p className="mt-5 text-pretty font-serif text-base leading-relaxed text-foreground sm:text-lg">
-            Dicen que cuando dos almas están destinadas a cruzarse, el universo entero conspira para acortar cualquier distancia. Hoy, desde Daly City hasta Colombia, confirmamos que lo nuestro ya estaba escrito en las estrellas. Como diría Coelho, fuimos la conspiración perfecta de la vida, y como canta Morat, ya no tengo que imaginarte porque hoy estás aquí. ¡Gracias por darme el sí más bonito y por la promesa de esos huevos con chile que tanto quiero probar!
+            Dicen que cuando dos almas están destinadas a cruzarse, el universo entero conspira para acortar cualquier distancia. Como diría Coelho, fuimos la conspiración perfecta de la vida. Además, la famosa ecuación de Dirac describe algo hermoso: si dos sistemas interactúan y se conectan, no importa si se separan por un océano o miles de kilómetros, lo que le ocurre a uno sigue influyendo al otro. Así, entrelazados a través de la distancia entre Daly City y Colombia, hoy finalmente somos novios oficiales. Gracias por ser mi sí.
           </p>
           <div className="mt-8 rounded-3xl border border-primary/20 bg-card/70 px-6 py-5 shadow-sm backdrop-blur-sm">
             <p className="font-script text-3xl text-primary sm:text-4xl">Te amo con todo mi corazón, Ruby Ramírez</p>
@@ -332,8 +337,11 @@ export function SwipeDeck() {
           <>
             <button
               onClick={commitRight}
-              className="flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95 z-10"
-              style={{ animation: "heartbeat 1.6s ease-in-out infinite" }}
+              className="flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-lg shadow-primary/30 transition-all z-10 duration-200"
+              style={{
+                transform: `scale(${yesButtonScale})`,
+                animation: "heartbeat 1.6s ease-in-out infinite",
+              }}
             >
               <Heart className="size-5 fill-current" /> ¡Sí!
             </button>
@@ -369,8 +377,9 @@ export function SwipeDeck() {
             <button
               onClick={commitRight}
               aria-label="Deslizar a la derecha (me gusta)"
-              className="flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95 z-10"
+              className="flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-all z-10 duration-200"
               style={{
+                transform: `scale(${yesButtonScale})`,
                 left: '55%',
               }}
             >
