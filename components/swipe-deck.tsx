@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useCallback, useEffect, useRef, useState } from "react"
-import { Heart, X, Eye, Sparkles, MessageCircle, Plane, MapPin } from "lucide-react"
+import { Heart, X, Eye, Sparkles, MessageCircle, Plane, MapPin, Utensils } from "lucide-react"
 import { Confetti } from "@/components/confetti"
 
 type Card = {
@@ -38,6 +38,14 @@ const CARDS: Card[] = [
     title: "Cada uno de tus tatuajes",
     text: "Amo cada historia dibujada en tu piel. Cada línea me cuenta un pedacito más de ti.",
     emoji: "🌹",
+  },
+  {
+    id: "cooking",
+    tag: "Lo que me encanta",
+    icon: Utensils,
+    title: "Tus huevos con chile",
+    text: "Verte cocinar en videollamada siempre me da hambre. Muero por probar tus huevos con chile y desayunar juntos.",
+    emoji: "🍳🌶️",
   },
   {
     id: "distance",
@@ -115,6 +123,7 @@ export function SwipeDeck() {
   const [dragging, setDragging] = useState(false)
   const [leaving, setLeaving] = useState<"left" | "right" | null>(null)
   const [taunt, setTaunt] = useState<string | null>(null)
+  const [noButtonOffset, setNoButtonOffset] = useState({ x: 0, y: 0 })
   const startRef = useRef<{ x: number; y: number } | null>(null)
 
   const isLast = index === CARDS.length - 1
@@ -179,6 +188,17 @@ export function SwipeDeck() {
     return () => window.clearTimeout(t)
   }, [taunt])
 
+  useEffect(() => {
+    setNoButtonOffset({ x: 0, y: 0 })
+  }, [index])
+
+  const handleNoHover = () => {
+    // Flee to a random offset within bounds
+    const randomX = (Math.random() - 0.5) * 240
+    const randomY = (Math.random() - 0.5) * 160
+    setNoButtonOffset({ x: randomX, y: randomY })
+  }
+
   if (accepted) {
     return (
       <>
@@ -195,16 +215,17 @@ export function SwipeDeck() {
             className="mt-6 font-script text-5xl text-primary sm:text-7xl"
             style={{ animation: "pop-in 0.6s ease-out" }}
           >
-            ¡Dijiste que sí!
+            ¡Finalmente Novios! 💖
           </h2>
           <p className="mt-5 text-pretty font-serif text-base leading-relaxed text-foreground sm:text-lg">
-            Ruby, de un swipe en Badoo a recorrer un continente entero por ti.
-            Gracias por seguir eligiéndome. Ahora es oficial: tú y yo, contra la
-            distancia y a favor de todo.
+            Ruby, después de tantas risas en videollamada, de platicar a la distancia
+            y de quedarme con las ganas de probar tus deliciosos huevos con chile,
+            ¡por fin es oficial! No importa la distancia que separa a Colombia de Daly City:
+            tú y yo hoy empezamos la etapa más bonita de nuestra historia.
           </p>
           <div className="mt-8 rounded-3xl border border-primary/20 bg-card/70 px-6 py-5 shadow-sm backdrop-blur-sm">
-            <p className="font-script text-3xl text-primary sm:text-4xl">Te amo, Ruby Ramírez</p>
-            <p className="mt-1 text-sm text-muted-foreground">Tuyo, desde Colombia hasta Daly City — siempre</p>
+            <p className="font-script text-3xl text-primary sm:text-4xl">Te amo con todo mi corazón, Ruby Ramírez</p>
+            <p className="mt-1 text-sm text-muted-foreground">Tuyo, desde Colombia hasta Daly City — hoy y siempre 👩‍❤️‍👨</p>
           </div>
         </div>
       </>
@@ -282,31 +303,56 @@ export function SwipeDeck() {
       </p>
 
       {/* Controls */}
-      <div className="mt-2 flex items-center gap-6">
-        <button
-          onClick={rejectLeft}
-          aria-label="Deslizar a la izquierda (no permitido)"
-          className="flex size-14 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-md transition-transform hover:scale-105 active:scale-95"
-        >
-          <X className="size-6" />
-        </button>
-
+      <div className="mt-2 flex items-center justify-center gap-6 relative min-h-[4.5rem] w-full">
         {isLast ? (
-          <button
-            onClick={commitRight}
-            className="flex items-center gap-2 rounded-full bg-primary px-7 py-4 text-lg font-bold text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95"
-            style={{ animation: "heartbeat 1.6s ease-in-out infinite" }}
-          >
-            <Heart className="size-5 fill-current" /> ¿Quieres ser mi novia?
-          </button>
+          <>
+            <button
+              onClick={commitRight}
+              className="flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95 z-10"
+              style={{ animation: "heartbeat 1.6s ease-in-out infinite" }}
+            >
+              <Heart className="size-5 fill-current" /> ¡Sí!
+            </button>
+            <button
+              onMouseEnter={handleNoHover}
+              onTouchStart={handleNoHover}
+              onClick={handleNoHover}
+              className="absolute flex items-center justify-center rounded-full border border-border bg-card px-8 py-4 text-lg font-bold text-muted-foreground shadow-md transition-all duration-200"
+              style={{
+                transform: `translate(${noButtonOffset.x}px, ${noButtonOffset.y}px)`,
+                left: noButtonOffset.x || noButtonOffset.y ? undefined : '55%',
+              }}
+            >
+              No
+            </button>
+          </>
         ) : (
-          <button
-            onClick={commitRight}
-            aria-label="Deslizar a la derecha (me gusta)"
-            className="flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95"
-          >
-            <Heart className="size-7 fill-current" />
-          </button>
+          <>
+            <button
+              onMouseEnter={handleNoHover}
+              onTouchStart={handleNoHover}
+              onClick={rejectLeft}
+              aria-label="Deslizar a la izquierda (no permitido)"
+              className="absolute flex size-14 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-md transition-all duration-200"
+              style={{
+                transform: `translate(${noButtonOffset.x}px, ${noButtonOffset.y}px)`,
+                left: noButtonOffset.x || noButtonOffset.y ? undefined : '20%',
+              }}
+            >
+              <X className="size-6" />
+            </button>
+
+            <button
+              onClick={commitRight}
+              aria-label="Deslizar a la derecha (me gusta)"
+              className="flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-105 active:scale-95 z-10"
+              style={{
+                left: '55%',
+              }}
+            >
+              <Heart className="size-7 fill-current" />
+            </button>
+          </>
         )}
       </div>
 
