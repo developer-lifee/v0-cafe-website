@@ -116,6 +116,18 @@ function CardFace({ card, dim }: { card: Card; dim?: boolean }) {
   )
 }
 
+const TROLL_TEXTS = [
+  "¿Segura? 🤔",
+  "¡Oye! 💔",
+  "Error: Opción inválida ❌",
+  "Intenta otra vez 😜",
+  "Mejor di que SÍ 🥰",
+  "¡Casi lo logras! 🏃‍♀️",
+  "Se te escapó 💨",
+  "¡Hazle caso al destino! ✨",
+  "Sí, acepto 💍"
+]
+
 export function SwipeDeck() {
   const [index, setIndex] = useState(0)
   const [accepted, setAccepted] = useState(false)
@@ -124,6 +136,7 @@ export function SwipeDeck() {
   const [leaving, setLeaving] = useState<"left" | "right" | null>(null)
   const [taunt, setTaunt] = useState<string | null>(null)
   const [noButtonOffset, setNoButtonOffset] = useState({ x: 0, y: 0 })
+  const [noButtonText, setNoButtonText] = useState("No")
   const startRef = useRef<{ x: number; y: number } | null>(null)
 
   const isLast = index === CARDS.length - 1
@@ -150,10 +163,19 @@ export function SwipeDeck() {
   }, [isLast, reset])
 
   const rejectLeft = useCallback(() => {
-    // Left swipe is not allowed — the card springs back and teases.
+    // Left swipe is now allowed to advance too!
+    setLeaving("left")
     setTaunt(NOPE_TAUNTS[index % NOPE_TAUNTS.length])
-    reset()
-  }, [index, reset])
+    window.setTimeout(() => {
+      if (isLast) {
+        setAccepted(true)
+      } else {
+        setIndex((i) => i + 1)
+      }
+      setLeaving(null)
+      reset()
+    }, 320)
+  }, [index, isLast, reset])
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (leaving) return
@@ -190,13 +212,18 @@ export function SwipeDeck() {
 
   useEffect(() => {
     setNoButtonOffset({ x: 0, y: 0 })
-  }, [index])
+    setNoButtonText(isLast ? "No" : "X")
+  }, [index, isLast])
 
   const handleNoHover = () => {
     // Flee to a random offset within bounds
     const randomX = (Math.random() - 0.5) * 240
     const randomY = (Math.random() - 0.5) * 160
     setNoButtonOffset({ x: randomX, y: randomY })
+
+    // Change text to random troll text
+    const nextText = TROLL_TEXTS[Math.floor(Math.random() * TROLL_TEXTS.length)]
+    setNoButtonText(nextText)
   }
 
   if (accepted) {
@@ -218,10 +245,7 @@ export function SwipeDeck() {
             ¡Finalmente Novios! 💖
           </h2>
           <p className="mt-5 text-pretty font-serif text-base leading-relaxed text-foreground sm:text-lg">
-            Ruby, después de tantas risas en videollamada, de platicar a la distancia
-            y de quedarme con las ganas de probar tus deliciosos huevos con chile,
-            ¡por fin es oficial! No importa la distancia que separa a Colombia de Daly City:
-            tú y yo hoy empezamos la etapa más bonita de nuestra historia.
+            Dicen que cuando dos almas están destinadas a cruzarse, el universo entero conspira para acortar cualquier distancia. Hoy, desde Daly City hasta Colombia, confirmamos que lo nuestro ya estaba escrito en las estrellas. Como diría Coelho, fuimos la conspiración perfecta de la vida, y como canta Morat, ya no tengo que imaginarte porque hoy estás aquí. ¡Gracias por darme el sí más bonito y por la promesa de esos huevos con chile que tanto quiero probar!
           </p>
           <div className="mt-8 rounded-3xl border border-primary/20 bg-card/70 px-6 py-5 shadow-sm backdrop-blur-sm">
             <p className="font-script text-3xl text-primary sm:text-4xl">Te amo con todo mi corazón, Ruby Ramírez</p>
@@ -323,7 +347,7 @@ export function SwipeDeck() {
                 left: noButtonOffset.x || noButtonOffset.y ? undefined : '55%',
               }}
             >
-              No
+              {noButtonText}
             </button>
           </>
         ) : (
@@ -333,13 +357,13 @@ export function SwipeDeck() {
               onTouchStart={handleNoHover}
               onClick={rejectLeft}
               aria-label="Deslizar a la izquierda (no permitido)"
-              className="absolute flex size-14 items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-md transition-all duration-200"
+              className="absolute flex items-center justify-center rounded-full border border-border bg-card text-muted-foreground shadow-md transition-all duration-200 px-4 py-2 min-h-12"
               style={{
                 transform: `translate(${noButtonOffset.x}px, ${noButtonOffset.y}px)`,
                 left: noButtonOffset.x || noButtonOffset.y ? undefined : '20%',
               }}
             >
-              <X className="size-6" />
+              {noButtonOffset.x || noButtonOffset.y ? noButtonText : <X className="size-6" />}
             </button>
 
             <button
