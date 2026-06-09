@@ -107,9 +107,13 @@ function CardFace({ card, dim }: { card: Card; dim?: boolean }) {
       </div>
 
       <div className="flex items-center justify-between text-xs text-muted-foreground">
-        <span className="inline-flex items-center gap-1">
-          <MapPin className="size-3.5" /> Badoo · 2022
-        </span>
+        {card.id === "match" ? (
+          <span className="inline-flex items-center gap-1">
+            <MapPin className="size-3.5" /> Badoo · 2022
+          </span>
+        ) : (
+          <span />
+        )}
         <span className="font-script text-lg text-primary">desliza →</span>
       </div>
     </div>
@@ -250,7 +254,7 @@ export function SwipeDeck() {
             ¡Finalmente Novios! 💖
           </h2>
           <p className="mt-5 text-pretty font-serif text-base leading-relaxed text-foreground sm:text-lg">
-            Dicen que cuando dos almas están destinadas a cruzarse, el universo entero conspira para acortar cualquier distancia. Como diría Coelho, fuimos la conspiración perfecta de la vida. Además, la famosa ecuación de Dirac describe algo hermoso: si dos sistemas interactúan y se conectan, no importa si se separan por un océano o miles de kilómetros, lo que le ocurre a uno sigue influyendo al otro. Así, entrelazados a través de la distancia entre Daly City y Colombia, hoy finalmente somos novios oficiales. Gracias por ser mi sí.
+            Como mi tatuaje de la ecuación de Dirac: dos sistemas que alguna vez estuvieron juntos quedan conectados para siempre, sin importar la distancia. Hoy, superando los kilómetros entre Daly City y Colombia, fuimos la conspiración perfecta del universo (como diría Coelho). ¡Finalmente somos novios! Gracias por ser mi sí.
           </p>
           <div className="mt-8 rounded-3xl border border-primary/20 bg-card/70 px-6 py-5 shadow-sm backdrop-blur-sm">
             <p className="font-script text-3xl text-primary sm:text-4xl">Te amo con todo mi corazón, Ruby Ramírez</p>
