@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Menu, X, Wifi, Monitor, Coffee, MapPin, Phone, Mail, Check, ChevronLeft, ChevronRight, Gift, Heart } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import Breakfast3DShowcase from '@/components/Breakfast3DShowcase'
 
 export default function CaféPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -144,6 +145,9 @@ export default function CaféPage() {
           </div>
         )}
       </header>
+
+      {/* 3D Breakfast Showcase - Máximo Protagonismo Gastronómico */}
+      <Breakfast3DShowcase />
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-background">
